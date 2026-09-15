@@ -5,7 +5,7 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        margin: 20px;
+        margin: 100px;
         background-color: lightblue;
         #fname, #lname, #address, #city, #postalcode, #email, #phone, #payment, #amount, #reference {
           width: 100%;
@@ -25,12 +25,40 @@
           margin: 5px 0;
           box-sizing: border-box;
         }
-        #city, #postalcode, #email, #phone, #payment, #amount, #reference {
+        #city, #email, #phone, #payment, #amount, #reference {
           width: 100%;
           padding: 10px;
           margin: 5px 0;
           box-sizing: border-box;
         }
+        #submit {
+          background-color: rebeccapurple;
+          color: white;
+          padding: 10px 20px;
+          border: solid rebeccapurple;
+          cursor: pointer;
+          margin-left: 150px;
+          margin-top: 20px;
+        }
+        #back {
+          background-color: rebeccapurple;
+          color: white;
+          padding: 10px 20px;
+          border: solid rebeccapurple;
+          cursor: pointer;
+          margin-left: 150px;
+          margin-top: 20px;
+           line-height: 1.6;
+           
+        }
+        #link {
+          
+          text-decoration: none;
+          margin-left: 50px;
+          margin-top: 20px;
+          display: inline-block;
+        }
+        
 
       }
     </style>
@@ -43,6 +71,7 @@
         BANK: GTB<br>
         email address:fdtgfhgiyeddthjjgs@gmail.com
         <h3>personal details</h3>
+        <form https://formspree.io/f/mrpgnvdj>
         <label for="fname">First Name:</label><br>
         <input type="text" id="fname" placeholder="First Name" required><br>
         <label for="lname">Last Name:</label><br>
@@ -51,8 +80,6 @@
         <input type="text" id="address" placeholder="Address" required><br>
         <label for="city">City:</label><br>
         <input type="text" id="city" placeholder="City" required><br>
-        <label for="postalcode">Postal Code:</label><br>
-        <input type="text" id="postalcode" placeholder="Postal Code" required><br>
         <label for="email">Email Address:</label><br>
         <input type="email" id="email" placeholder="Email Address" required><br>
         <label for="phone">Phone Number:</label><br>
@@ -67,9 +94,9 @@
         <input type="text" id="amount" placeholder="Payment Amount" required><br>
         
         
-        <button type="submit">Submit</button>
+        <button id="submit" type="submit">Submit</button>
         <p>After making payment, please send a screenshot of your payment to our email address</p>
-        <a href="baking.html"><button>Back to menu</button></a>
-        <a href="https://wa.me/09029910208" target="_blank">RSVP</a>
+        <a href="index.html"><button id="back">Back to menu</button></a><br>
+        <a href="https://wa.me/09029910208" target="_blank" id="link">For more enquiries or specifications tap here</a>
       </body>
 </html>
