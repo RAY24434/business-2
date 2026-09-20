@@ -7,29 +7,29 @@
         font-family: Arial, sans-serif;
         margin: 100px;
         background-color: lightblue;
-        #fname, #lname, #address, #city, #postalcode, #email, #phone, #payment, #amount, #reference {
+        
+        
+        #city, #email, #phone, #payment, #amount, #reference,#address ,#fname,#lname{
           width: 100%;
+          height:100%;
           padding: 10px;
           margin: 5px 0;
           box-sizing: border-box;
+          background: white;
+          color:black;
+          border:none;
+          padding:12px 24px;
+          border-radius:50px;
+          font-size:16px;
+          font-weight:600;
+          cursor:pointer;
+          transition:all 0.3s ease;
         }
-        #lname, #address, #city, #postalcode, #email, #phone, #payment, #amount, #reference {
-          width: 100%;
-          padding: 10px;
-          margin: 5px 0;
-          box-sizing: border-box;
+        #submit:hover{
+                      transform:translateY(-2px);
+                      box-shadow:0 6px 15px rgba(0.2);
         }
-        #address, #city, #postalcode, #email, #phone, #payment, #amount, #reference {
-          width: 100%;
-          padding: 10px;
-          margin: 5px 0;
-          box-sizing: border-box;
-        }
-        #city, #email, #phone, #payment, #amount, #reference {
-          width: 100%;
-          padding: 10px;
-          margin: 5px 0;
-          box-sizing: border-box;
+          
         }
         #submit {
           background-color: rebeccapurple;
@@ -58,9 +58,87 @@
           margin-top: 20px;
           display: inline-block;
         }
-        
+         #submit{
+                 background: #2563eb;
+                 color:white;
+                 border:none;
+                 padding:12px 24px;
+                 border-radius:50px;
+                 font-size:16px;
+                 font-weight:600;
+                 cursor:pointer;
+                 transition:all 0.3s ease;
+        }
+        #submit:hover{
+                      transform:translateY(-2px);
+                      box-shadow:0 6px 15px rgba(0.2);
+        }
+        #back{
+                 background: #2563eb;
+                 color:white;
+                 border:none;
+                 padding:12px 24px;
+                 border-radius:50px;
+                 font-size:16px;
+                 font-weight:600;
+                 cursor:pointer;
+                 transition:all 0.3s ease;
+        }
+        #back:hover{
+                      transform:translateY(-2px);
+                      box-shadow:0 6px 15px rgba(0.2);
+        }
+        .quantity-control{
+         display:inline-flex;
+          align-items:center;
+          gap:15px;
+          padding:6px 10px;
+          
+          border-radius:50px;
+        }
+        .quantity-btn{
+          width:15px;
+          height:15px;
+          border:none;
+          border-radius:50%;
+          background-color:rgb(5, 162, 26) ;
+          color:white;
+          font-size:10px;
+          font-weight:bold;
+          cursor:pointer;
+          display:inline-flex;
+          align-items:center;
+          justify-content:center;
+          transition:0.2s ease;
 
-      }
+        }
+        .quantity-btn:hover{
+          transform:scale(1.1);
+          box-shadow:0 4px 10px rgba(0,0,0,0.2);
+
+        }
+        .quantity-btn:active{
+          transform:scale(0.95);
+        }
+       
+         #remove{
+                 background-color: lightblue;
+                 color:white;
+                 border:none;
+                 padding:0px;
+                 border-radius:0px;
+                 font-size:0px;
+                 font-weight:0;
+                 cursor:pointer;
+                 transition:all 0.3s ease;
+        }
+        #remove:hover{
+                      transform:translateY(-2px);
+                      box-shadow:0 6px 15px rgba(0.2);
+        }
+
+
+      
     </style>
       </head>
       <body>
@@ -70,8 +148,28 @@
         ACCOUNT NUMBER: 1234567890<br>
         BANK: GTB<br>
         email address:fdtgfhgiyeddthjjgs@gmail.com
+        <table id="orderTable">
+          <thead>
+            <tr>
+              <th>product</th>
+              <th>Quantity</th>
+              <th> unit Price</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="orderItems"></tbody>
+            <tfoot>
+              <tr>
+                <th colspan="3"><strong>Grand Total:</strong></th>
+                <th id="grandTotal">£0.00</th>
+              </tr>
+            </tfoot>
+          
+        </table>
         <h3>personal details</h3>
-        <form https://formspree.io/f/mrpgnvdj>
+        <form
+        actions=" https://formspree.io/f/mrpgnvdj" method="POST">
         <label for="fname">First Name:</label><br>
         <input type="text" id="fname" placeholder="First Name" required><br>
         <label for="lname">Last Name:</label><br>
@@ -95,8 +193,90 @@
         
         
         <button id="submit" type="submit">Submit</button>
+        </form>
         <p>After making payment, please send a screenshot of your payment to our email address</p>
         <a href="index.html"><button id="back">Back to menu</button></a><br>
         <a href="https://wa.me/09029910208" target="_blank" id="link">For more enquiries or specifications tap here</a>
-      </body>
-</html>
+        
+        <script>
+          function displayCheckout(){
+          const cart=JSON.parse(localStorage.getItem("cart")) ||
+        [];
+        const orderItems = document.getElementById('orderItems');
+        const grandTotal = document.getElementById('grandTotal');
+        
+      
+          let total=0;
+          cart.forEach((item ,index)=>{
+          const row = document.createElement("tr");
+          //make sure quantity has a value
+          const quantity = Number(item.quantity) || 1;
+          const itemTotal=Number(item.price)*quantity;
+          row.innerHTML = `
+            <td>${item.name}</td>
+      
+           <td><button class="quantity-btn" onclick="decreaseQuantity(${index})"
+                                             style="padding:5px 10px;">
+                                             -
+                                             </button> 
+                                             <span   style="margin:0 10px;">
+                                              ${quantity}</span>
+            <button class="quantity-btn" onclick="increaseQuantity(${index})"
+                                             style="padding:5px 10px;">
+                                             +
+                                             </button> </td>                                 
+            <td>£${Number(item.price).toLocaleString("en-NG")}</td>
+            <td>£${Number(item.total).toLocaleString("en-NG")}</td>
+            <td>
+              <button id="remove"
+              onclick="removeFromCart(${index})"><img src="delete icon.webp" width="10%"></botton></td>
+          `;
+          orderItems.appendChild(row);
+          total+=Number(item.total);
+        });
+        grandTotal.textContent = "£" + total.toLocaleString("en-NG",{ minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        
+        }
+        function increaseQuantity(index){
+          let cart=JSON.parse(localStorage.getItem("cart"))|| [];
+        cart[index].quantity = (Number(cart[index].quantity)|| 1) + 1;
+          cart[index].total=Number(cart[index].price)*cart[index].quantity;
+          localStorage.setItem("cart",JSON.stringify(cart));
+          location.reload();
+          displayCheckout();
+        }
+        function decreaseQuantity(index){
+          let cart=JSON.parse(localStorage.getItem("cart"))|| [];
+        let quantity = Number(cart[index].quantity)|| 1;
+        if (quantity>1)
+        {cart[index].quantity = quantity-1;
+          cart[index].total=Number(cart[index].price)*cart[index].quantity;
+           localStorage.setItem("cart",JSON.stringify(cart));
+           location.reload();
+        displayCheckout();
+
+        }else{
+          removeFromCart(index);
+        }
+      }
+        function removeFromCart(index){
+          let cart =
+          JSON.parse(localStorage.getItem("cart")) || [];
+        //remove only the selected item
+          cart.splice(index, 1);
+          //save the new cart
+          localStorage.setItem("cart",JSON.stringify(cart));
+          //refresh the checkout page
+          location.reload();
+          
+          displayCheckout();
+          }
+          displayCheckout();
+
+        
+      
+
+        </script>
+         
+
+      

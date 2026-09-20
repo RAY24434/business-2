@@ -2,17 +2,98 @@
 <html>
   <head>
     <title>baking order website</title>
-    <style></style>
+    <style>
+      body{background-color: aquamarine;
+        border: 10px solid rebeccapurple;
+        margin:0px;
+        padding:1%;
+        h1{
+          font-size: 500%;
+          padding: 10%;
+        }
+        .first{
+          font-size: 250%;
+        }
+        .head{
+          font-size: 250%;
+          padding: 10%;
+        }
+        #cart{
+          background-color: aquamarine;
+          border:0px;
+          
+          top:250%;
+        }
+        .buttons{
+          
+           background: white;
+           color:white;
+           border:none;
+           padding:12px 24px;
+           border-radius:100px;
+           font-size:16px;
+           font-weight:600;
+           cursor:pointer;
+           transition:all 0.3s ease;
+        }
+        .buttons:hover{
+            transform:translateY(-2px);
+            box-shadow:0 6px 15px rgba(0.2);
+        }
+        
+
+
+      }
+    </style>
     </head>
     <body>
         <h1>Vanilla Cake</h1>
         <img src="images (8).jpg" width="100%" >
-        <p><strong>DryIngredients:</strong><br> All-purpose flour or cake flour: 2 ½ cups (approx. 300g–350g) for structure.Baking powder: 2 to 2 ½ teaspoons to help the cake rise.Salt: ½ teaspoon to balance the sweetness.Granulated white sugar: 1 ½ to 2 cups (approx. 300g–400g) for sweetness and moisture.<br>
-        <strong>Wet Ingredients:</strong><br> Unsalted butter: ½ cup (115g), softened at room temperature for rich flavor.Vegetable oil: ½ cup or a few tablespoons (depending on the recipe) to keep the crumb extra moist.Eggs: 3 to 4 large eggs at room temperature to bind and aerate the batter.Vanilla extract: 1 to 2 tablespoons of high-quality extract for the core flavor.Milk or Buttermilk: 1 cup at room temperature for liquid balance and tender texture. </p>
-        <h6>Allergens</h6>
-        <p>Contains: Eggs, Milk, Wheat (Gluten).<br>
+        <h2><strong class="head">Dry Ingredients:</strong><br></h2>
+        <p class="first"><ol><li> All-purpose flour </li><li>Baking powder</li><li>Salt</li><li>Granulated white sugar</li></ol><br>
+        <h2>  <strong class="head">Wet Ingredients:</strong><br></h2>
+           <ol><li>Unsalted butter</li><li>Vegetable oil</li><li>Eggs</li><li>Vanilla extract</li><li>Milk</li></ol></p>
+        <h2>Allergens</h2>
+        <p class="first">Contains: <ul><li> Eggs</li><li> Milk</li><li> Wheat (Gluten)</li></ul><br>
             May contain traces of: Tree Nuts, Peanuts, Soy.</p>
             <h4>price</h4>
-            <p>20,000 Naira</p>
-            <a href="index.html"><button>Back to menu</button></a>
-            <a href="order.html"><button>Order Now</button></a>
+            <label >Quantity</label>
+            <input type="text" id="quantity" name="quantity" min="1" value="1">
+            <p>Total:£<span id="total">20,000.00</span></p>
+            <a class="buttons" href="index.html"><button>Back to menu</button></a>
+            <a class="buttons" href="order.html"><button>checkout Now</button></a>
+            <button id="cart" onclick=addToCart()><img src="cart image.png" width="8%" height="10%"></button>
+            <script>
+                const quantityInput = document.getElementById("quantity");
+                const totalSpan = document.getElementById("total");
+                const price = 20000.00;
+                
+                quantityInput.addEventListener('input',function () {
+                  const quantity = parseInt(quantityInput.value);
+                  const amount = quantity * price;
+                  total.textContent = amount.toLocaleString() });
+                
+              
+                function addToCart() {
+                  const quantity = parseInt(quantityInput.value);
+                  const product = {
+                    name: "Vanilla Cake",
+                    quantity: quantity,
+                    price: price,
+                    total: quantity * price
+                  };
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                const existingProduct = cart.find(item => item.name === product.name);
+                if (existingProduct) {
+                  existingProduct.quantity += quantity;
+                  existingProduct.total = existingProduct.quantity * existingProduct.price;
+                } else {
+                  cart.push(product);
+                }
+                localStorage.setItem("cart", JSON.stringify(cart));
+                alert(quantity+ " Vanilla Cake(s) added to cart!");
+                }
+
+              </script>
+            </body>
+</html>

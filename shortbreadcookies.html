@@ -2,17 +2,78 @@
 <html>
   <head>
     <title>baking order website</title>
-    <style></style>
+    <style>
+      body{
+        background-color: aquamarine;
+        border: 10px solid rebeccapurple;
+        margin:0px;
+        padding:1%;}
+        h1{
+          font-size: 500%;
+          padding: 10%;
+        }
+        .first{
+          font-size: 250%;
+        }
+        .head{
+          font-size: 250%;
+          padding: 10%;
+        }
+    </style>
     </head>
     <body>
         <h1>Shortbread Cookies</h1>
         <img src="image (10).jpg" width="100%" >
-        <p><strong>Ingredients:</strong><br><ol><li>Unsalted butter</li><li>Powdered sugar</li><li>Vanilla extract</li><li>All-purpose flour</li><li>Salt: </li></ol><br>
-        <h6>Allergens</h6>
+        <h2><strong>Ingredients:</strong></h2>
+        <p><ol><li>Unsalted butter</li><li>Powdered sugar</li><li>Vanilla extract</li><li>All-purpose flour</li><li>Salt: </li></ol><br>
+        <h2>Allergens</h2>
         <p>Contains:<br><ul><li>wheat</li><li>milk</li></ul></p>
         <h4>price</h4>
-        <p>12,000 Naira for 1kg</p>
-        <a href="baking.html"><button>Back to menu</button></a>
-        <a href="order.html"><button>Order Now</button></a>
+        <p><label for="quantity">Quantity</label>
+            <input type="text" id="quantity" name="quantity" min="1" value="1">
+            <p>Total:£<span id="total">400.00</span></p></p>
+        <a href="index.html"><button id="back">Back to menu</button></a>
+        <a href="order.html"><button>checkout Now</button></a>
+        <button onclick="addToCart()">Add to Cart</button>
+            <script>
+                const quantityInput = document.getElementById("quantity");
+                const totalSpan = document.getElementById("total");
+                const price = 4000.00;
+                
+                quantityInput.addEventListener('input',function () {
+                  const quantity = parseInt(quantityInput.value);
+                  const amount = quantity * price;
+                  total.textContent = amount.toLocaleString() });
+                
+              
+                function addToCart() {
+                  const quantity = parseInt(quantityInput.value);
+                  const product = {
+                    name: "Shortbread Cookies",
+                    quantity: quantity,
+                    price: price,
+                    total: quantity * price
+                  };
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                const existingProduct = cart.find(item => item.name === product.name);
+                if (existingProduct) {
+                  existingProduct.quantity += quantity;
+                  existingProduct.total = existingProduct.quantity * existingProduct.price;
+                } else {
+                  cart.push(product);
+                }
+                localStorage.setItem("cart", JSON.stringify(cart));
+                alert(quantity+ " Shortbread Cookies(s) added to cart!");
+                }
+                function removeFromCart(productId) {
+                  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                  cart = cart.filter(item => item.id !== productId);
+                  localStorage.setItem("cart", JSON.stringify(cart));
+                  alert("Cart cleared!");
+                }
+
+              </script>
+            </body>
+</html>
     </body>
 </html>
