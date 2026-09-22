@@ -19,6 +19,38 @@
           font-size: 250%;
           padding: 10%;
         }
+        #cart{
+          background-color: aquamarine;
+          border:0px;
+          padding: 0px;
+          margin: 0px;
+          position: relative;
+          top:-75px;
+          left:-7%;
+        }
+        .buttons button{
+          
+           background: blue;
+           color:white;
+           border:none;
+           padding:12px 24px;
+           border-radius:100px;
+           font-size:16px;
+           font-weight:600;
+           cursor:pointer;
+           transition:all 0.3s ease;}
+           .buttons button:hover{
+            transform:translateY(-2px);
+            box-shadow:0 6px 15px rgba(0.2);
+        }
+        #carttext{
+          position: relative;
+          left:37%;
+          top:-110px;
+      }
+      #quantity{
+        border-radius:50px;
+      }
     </style>
     </head>
     <body>
@@ -31,14 +63,15 @@
         <h4>price</h4>
         <p><label for="quantity">Quantity</label>
             <input type="text" id="quantity" name="quantity" min="1" value="1">
-            <p>Total:£<span id="total">400.00</span></p></p>
-        <a href="index.html"><button id="back">Back to menu</button></a>
-        <a href="order.html"><button>checkout Now</button></a>
-        <button onclick="addToCart()">Add to Cart</button>
+            <p>Total:£<span id="total">150.00</span></p></p>
+        <a class="buttons" href="index.html"><button id="back">Back to menu</button></a>
+        <a class="buttons" href="order.html"><button>checkout Now</button></a>
+        <button id="cart" onclick="addToCart()"><img src="cart image.png" width="8%" height="10%"></button>
+        <h6 id="carttext">Add to cart</h6>
             <script>
                 const quantityInput = document.getElementById("quantity");
                 const totalSpan = document.getElementById("total");
-                const price = 4000.00;
+                const price = 150.00;
                 
                 quantityInput.addEventListener('input',function () {
                   const quantity = parseInt(quantityInput.value);

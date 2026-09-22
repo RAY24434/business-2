@@ -2,17 +2,102 @@
 <html>
   <head>
     <title>baking order website</title>
-    <style></style>
+    <style>body{background-color: aquamarine;
+        border: 0px solid rebeccapurple;
+        margin:0px;
+        padding:1%;}
+        h1{
+          font-size: 500%;
+          padding: 10%;
+        }
+        .first{
+          font-size: 250%;
+        }
+        .head{
+          font-size: 250%;
+          padding: 10%;
+        }
+        #cart{
+          background-color: aquamarine;
+          border:0px;
+          padding: 0px;
+          margin: 0px;
+          position: relative;
+          top:-75px;
+          left:-5%;
+        }
+        .buttons button{
+          
+           background: blue;
+           color:white;
+           border:none;
+           padding:12px 24px;
+           border-radius:100px;
+           font-size:16px;
+           font-weight:600;
+           cursor:pointer;
+           transition:all 0.3s ease;
+           
+        }
+        .buttons button:hover{
+            transform:translateY(-2px);
+            box-shadow:0 6px 15px rgba(0.2);
+        }
+        #carttext{
+          position: relative;
+          left:37%;
+          top:-110px;
+      }
+      #quantity{
+        border-radius:50px;
+      }</style>
     </head>
     <body>
-        <h1>Shortbread Cookies</h1>
+        <h1>Butter Cookies</h1>
         <img src="images (12).jpg" width="100%" >
-        <p><strong>Ingredients:</strong><br><ol><li>Butter.</li><li>Sugar</li><li>Flour</li><li>Salt</li><li>Eggs</li><li>Vanilla Extract.</li><li>Milk or Water</li></ol><br>
-        <h6>Allergens</h6>
-        <p>Contains:<br><ol><li>wheat (gluten)</li><li>dairy (milk)</li><li>eggs</li></ol></p>
+        <p id=head class="first"><strong>Ingredients:</strong><br><ol><li>Butter.</li><li>Sugar</li><li>Flour</li><li>Salt</li><li>Eggs</li><li>Vanilla Extract.</li><li>Milk or Water</li></ol><br>
+        <h2>Allergens</h2>
+        <p class="first">Contains:<br><ol><li>wheat (gluten)</li><li>dairy (milk)</li><li>eggs</li></ol></p>
         <h4>price</h4>
-        <p>12,000 Naira for 1kg</p>
-        <a href="baking.html"><button>Back to menu</button></a>
-        <a href="order.html"><button>Order Now</button></a>
-    </body>
+         <label >Quantity</label>
+            <input type="text" id="quantity" name="quantity" min="1" value="1">
+            <p>Total:£<span id="total">150.00</span></p>
+        <a class="buttons" href="index.html"><button>Back to menu</button></a>
+        <a class="buttons" href="order.html"><button>Order Now</button></a>
+        <button id="cart" onclick=addToCart()><img src="cart image.png" width="8%" height="10%"></button>
+            <h6 id="carttext">Add to cart</h6>
+            <script>
+                const quantityInput = document.getElementById("quantity");
+                const totalSpan = document.getElementById("total");
+                const price = 150.00;
+                
+                quantityInput.addEventListener('input',function () {
+                  const quantity = parseInt(quantityInput.value);
+                  const amount = quantity * price;
+                  total.textContent = amount.toLocaleString() });
+                
+              
+                function addToCart() {
+                  const quantity = parseInt(quantityInput.value);
+                  const product = {
+                    name: "Butter Cookies",
+                    quantity: quantity,
+                    price: price,
+                    total: quantity * price
+                  };
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                const existingProduct = cart.find(item => item.name === product.name);
+                if (existingProduct) {
+                  existingProduct.quantity += quantity;
+                  existingProduct.total = existingProduct.quantity * existingProduct.price;
+                } else {
+                  cart.push(product);
+                }
+                localStorage.setItem("cart", JSON.stringify(cart));
+                alert(quantity+ " Butter cookie(s) added to cart!");
+                }
+
+              </script>
+            </body>
 </html>
+    

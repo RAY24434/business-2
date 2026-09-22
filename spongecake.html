@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>milkcookies website</title>
+    <title>baking order website</title>
     <style>
-      body{
-        background-color: aquamarine;
-        border: 10px solid rebeccapurple;
+      body{background-color: aquamarine;
+        border: 0px solid rebeccapurple;
         margin:0px;
         padding:1%;}
         h1{
@@ -56,28 +55,27 @@
     </style>
     </head>
     <body>
-        <h1>Milk Cookies</h1>
-        <img src="images (9).jpg" width="100%" >
-        <h2><strong>Ingredients:</strong></h2>
-        <p><ol><li>  unsalted butter, softened</li><li> sweetened condensed milk</li><li>all-purpose flour</li><li> cornstarch</li><li>vanilla extract</li><li> baking powder</li><li> salt</li></ol><br>
-        
+        <h1>Sponge Cake</h1>
+        <img src="images (14).jpg" width="100%" >
+        <p class="first"><strong id="head">Ingredients:</strong><br><ol><li>Eggs.</li><li>Sugar.</li><li>Flour.</li><li>Baking Powder.</li><li>Butter or Oil.</li><li>Milk.</li><li>Vanilla Extract.</li><li>Salt.</li></ol></p>
         <h2>Allergens</h2>
-        <p>Contains:<br><ul><li>dairy</li><li>wheat</li><li>eggs</li><li>soy</li></ul></p>
+        <p class="first">Contains:<br><ul><li>wheat (gluten)</li><li>eggs</li><li>milk</li></ul></p>
         <h4>price</h4>
-        <label >Quantity</label>
-            <input type="text" id="quantity" name="quantity" min="1" value="1">
-            <p>Total:£<span id="total">150.00</span></p>
+        <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1">
+            <p>Total:£<span id="total">20,000.00</span></p>
         <a class="buttons" href="index.html"><button>Back to menu</button></a>
-        <a class="buttons" href="order.html"><button>checkout Now</button></a>
+        <a class="buttons" href="order.html"><button>Order Now</button></a>
+        
         <button id="cart" onclick=addToCart()><img src="cart image.png" width="8%" height="10%"></button>
             <h6 id="carttext">Add to cart</h6>
-       <script>
+            <script>
                 const quantityInput = document.getElementById("quantity");
                 const totalSpan = document.getElementById("total");
-                const price = 150.00;
+                const price = 20000.00;
                 
                 quantityInput.addEventListener('input',function () {
-                  const quantity = parseInt(quantityInput.value);
+                  const quantity = Number(quantityInput.value);
                   const amount = quantity * price;
                   total.textContent = amount.toLocaleString() });
                 
@@ -85,7 +83,7 @@
                 function addToCart() {
                   const quantity = parseInt(quantityInput.value);
                   const product = {
-                    name: "Milk Cookies",
+                    name: "Sponge Cake",
                     quantity: quantity,
                     price: price,
                     total: quantity * price
@@ -99,7 +97,7 @@
                   cart.push(product);
                 }
                 localStorage.setItem("cart", JSON.stringify(cart));
-                alert(quantity+ " Milk Cookies(s) added to cart!");
+                alert(quantity+ " Sponge Cake(s) added to cart!");
                 }
 
               </script>

@@ -5,50 +5,43 @@
     <style>
         body{
             background-color:lightblue;
-            margin:0px;
-            border:15px groove rgb(41, 10, 151);
+            margin:10%;
+            border:0px groove rgb(41, 10, 151);
         }
         h1{
-            position:absolute;
+            position:relative;
             top:2px;
-            left:40px;
+            left:10%;
             color:blue;
             font-size:400%; }
-            #img1{
-                position:relative;
-                top:100px;
-                left:5px;
-                
+            
+            .image-container{
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
+                gap: 5px;
+                width:100%;
+                max-width:900px;
+                margin:auto;
+                padding-top:5%;
+                box-sizing: border-box;
             }
-            #img2{
-                position:absolute;
-            top:110px;
-            left:290px;
+            .image-container img{
+                height:250px;
+                object-fit:cover;
+                border-radius:10px;
+                display:block;
             }
-            #img3{
-                position:relative;
-            top:100px;
-            left:5px;
+            @media(max-width:600px){
+                .image-container{
+                    grid-template-columns: 1fr;
+                    gap:15px;padding:10px;
+                }
+                .image-container img{
+                    height:220px;
+                }
             }
-            #img4
-            {position:absolute;
-            top:290px;
-            left:290px;
-            }
-            #img5{
-                position:relative;
-            top:-110px;
-            left:280px;}
-            #img6{
-                position:relative;
-            top:-100px;
-            left:10px;}
-            #img7{
-                position:relative;
-            top:-320px;
-            left:280px;}
-            h2{margin-left:150px;
-                margin-right:150px;
+            h2{margin-left:250px;
+                margin-right:250px;
                 padding:10px;
                 background-color:rgb(195, 102, 2);
                 font-style: bold;
@@ -72,18 +65,26 @@
                     font-size:20px;
                     color:rgb(151, 10, 102);
                     }
+                    #menu{
+                        background-color: aquamarine;
+                        border-radius: 50px;
+                        margin-top: 50px;
+                        padding:1px;
+                        
+                    }
     </style>
     </head>
     <body>
          <h1>RAYS DELIGHT!!!</h1>
-        <img id="img1" src="images (1).jpg" width="50%" >
-        <img id="img2" src="images (2).jpg" width="50%" >
-        <img id="img3" src="images (3).jpg" width="50%" >
-        <img id="img4" src="images (4).jpg" width="50%" >
-        <img id="img5" src="images (5).jpg" width="50%" >
-        <img id="img6" src="images (6).jpg" width="50%" height="200px" >
-        <img id="img7" src="images (7).jpg" width="50%" height="215px" >
-
+         <div class="image-container">
+        <img id="img1" src="images (1).jpg" width="100%" >
+        <img id="img2" src="images (2).jpg" width="100%" >
+        <img id="img3" src="images (3).jpg" width="100%" >
+        <img id="img4" src="images (4).jpg" width="100%" >
+        <img id="img5" src="images (5).jpg" width="100%" >
+        <img id="img6" src="images (6).jpg" width="100%" >
+        <img id="img7" src="images (7).jpg" width="100%"  ></div>
+        <div id="menu">
         <h2>MENU!!!!!!</h2>
         <h3>What will you like to order?</h3>
         <ol>
@@ -96,6 +97,7 @@
             <a href="spongecake.html"><li><button>Sponge cake</button></li></a>
 
         </ol>
+    </div>
     </body>
 </html>
       
