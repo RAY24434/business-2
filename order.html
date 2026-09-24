@@ -9,7 +9,7 @@
         background-color: lightblue;
         
         
-        #city, #email, #phone, #payment, #amount, #reference,#address ,#fname,#lname{
+        #city, #customerEmail, #customerPhone, #payment, #amount, #reference,#customerAddress ,#customerName{
           width: 100%;
           height:100%;
           padding: 10px;
@@ -31,7 +31,7 @@
         }
           
         }
-        #submit {
+        #placeOrderButton {
           background-color: rebeccapurple;
           color: white;
           padding: 10px 20px;
@@ -58,7 +58,7 @@
           margin-top: 20px;
           display: inline-block;
         }
-         #submit{
+         #placeOrderButton{
                  background: #2563eb;
                  color:white;
                  border:none;
@@ -69,7 +69,7 @@
                  cursor:pointer;
                  transition:all 0.3s ease;
         }
-        #submit:hover{
+        #placeOrderButton:hover{
                       transform:translateY(-2px);
                       box-shadow:0 6px 15px rgba(0.2);
         }
@@ -122,7 +122,7 @@
         }
        
          #remove{
-                 background-color: lightblue;
+                 background-color: aquamarine;
                  color:white;
                  border:none;
                  padding:0px;
@@ -136,6 +136,23 @@
                       transform:translateY(-2px);
                       box-shadow:0 6px 15px rgba(0.2);
         }
+        #form{
+          
+          padding: 3%;
+          border-radius: 10%;
+          background-color: aquamarine;
+          padding: 3%;
+        }
+        #table{
+          background-color: aquamarine;
+          padding: 3%;
+        }
+        #details{
+          background-color: aquamarine;
+          border-radius: 20%;
+          padding: 3%;
+
+        }
 
 
       
@@ -144,10 +161,14 @@
       <body>
         <h1>Checkout details</h1>
         <p>please make payment using the details below.</p><br>
+        <div id="details">
         ACCOUNT NAME: Northstar Market<br>
         ACCOUNT NUMBER: 1234567890<br>
         BANK: GTB<br>
         email address:fdtgfhgiyeddthjjgs@gmail.com
+        </div>
+        <h2 id="carthead">CART</h2>
+        <div id="table">
         <table id="orderTable">
           <thead>
             <tr>
@@ -166,34 +187,31 @@
               </tr>
             </tfoot>
           
-        </table>
+        </table></div>
         <h3>personal details</h3>
+        <div id="form">
         <form
         actions=" https://formspree.io/f/mrpgnvdj" method="POST">
-        <label for="fname">First Name:</label><br>
-        <input type="text" id="fname" placeholder="First Name" required><br>
-        <label for="lname">Last Name:</label><br>
-        <input type="text" id="lname" placeholder="Last Name" required><br>
+        <label for="name">Name:</label><br>
+        <input type="text" id="customerName" placeholder=" Name" required><br>
         <label for="address">Address:</label><br>
-        <input type="text" id="address" placeholder="Address" required><br>
-        <label for="city">City:</label><br>
-        <input type="text" id="city" placeholder="City" required><br>
+        <input type="text" id="customerAddress" placeholder="Address" required><br>
         <label for="email">Email Address:</label><br>
-        <input type="email" id="email" placeholder="Email Address" required><br>
+        <input type="email" id="customerEmail" placeholder="Email Address" required><br>
         <label for="phone">Phone Number:</label><br>
-        <input type="tel" id="phone" placeholder="Phone Number" required><br>
-        <label for="payment">Payment Method:</label><br>
-        <select id="payment" name="payment">
-          <option value="creditcard">Credit Card</option>
-          <option value="paypal">PayPal</option>
-          <option value="banktransfer">Bank Transfer</option>
+        <input type="tel" id="customerPhone" placeholder="Phone Number" required><br>
+        <!--label for="payment"!--><!--/label!--><br>
+        <!--select id="payment" name="payment"!-->
+          <!--option value="creditcard"!--><!--/option!-->
+          <!--option value="paypal">PayPal<--/option!-->
+          <!--option value="banktransfer"!--><!--/option!-->
         </select><br>
-        <label for="amount">Payment Amount:</label><br>
-        <input type="text" id="amount" placeholder="Payment Amount" required><br>
-        
-        
-        <button id="submit" type="submit">Submit</button>
         </form>
+        </div>
+        
+        
+        <button id="placeOrderButton" type="submit">Place your order</button>
+        
         <p>After making payment, please send a screenshot of your payment to our email address</p>
         <a href="index.html"><button id="back">Back to menu</button></a><br>
         <a href="https://wa.me/09029910208" target="_blank" id="link">For more enquiries or specifications tap here</a>
@@ -234,7 +252,7 @@
           orderItems.appendChild(row);
           total+=Number(item.total);
         });
-        grandTotal.textContent = "£" + total.toLocaleString("en-NG",{ minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        grandTotal.textContent = "₦" + total.toLocaleString("en-NG",{ minimumFractionDigits: 2, maximumFractionDigits: 2 });
         
         }
         function increaseQuantity(index){
@@ -272,6 +290,101 @@
           displayCheckout();
           }
           displayCheckout();
+          const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPWS3H3_MdqOFlQTnk21riNeSmYzIViquLJVRMWtP_xggX1Tlat7p1OfEVL83_Kr_U/exec";
+
+document.getElementById("placeOrderButton").addEventListener("click", function () {
+
+    // Get the latest cart directly from localStorage
+    const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    console.log("Current cart:", currentCart);
+
+    // Check whether the cart is empty
+    if (currentCart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+
+    // Get customer information
+    const name = document.getElementById("customerName").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+    const email = document.getElementById("customerEmail").value.trim();
+    const address = document.getElementById("customerAddress").value.trim();
+
+    // Check customer information
+    if (!name || !phone || !email || !address) {
+        alert("Please fill in all your information.");
+        return;
+    }
+
+    // Convert cart into readable text
+    const items = currentCart.map(function(item) {
+        return `${item.name} × ${item.quantity} = ₦${item.total.toLocaleString()}`;
+    }).join("\n");
+
+    // Calculate the complete order total
+    const total = currentCart.reduce(function(sum, item) {
+        return sum + Number(item.total);
+    }, 0);
+
+    // Prepare the information for Google Sheets
+    const orderData = new URLSearchParams();
+
+    orderData.append("name", name);
+    orderData.append("phone", phone);
+    orderData.append("email", email);
+    orderData.append("address", address);
+    orderData.append("items", items);
+    orderData.append("total", "₦" + total.toLocaleString());
+
+    console.log("Sending order:", {
+        name,
+        phone,
+        email,
+        address,
+        items,
+        total
+    });
+
+    // Send the order
+    fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        body: orderData
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(result) {
+
+        console.log("Google response:", result);
+
+        if (result.success) {
+
+            alert(
+                "Your order has been placed successfully!\n\n" +
+                "Order ID: " + result.orderId
+            );
+
+            // Empty the cart after successful submission
+            localStorage.removeItem("cart");
+
+        } else {
+
+            alert("There was a problem submitting your order.");
+            console.error(result.error);
+        }
+    })
+    .catch(function(error) {
+
+        console.error("Order error:", error);
+
+        alert(
+            "Something went wrong while placing your order. " +
+            "Please try again."
+        );
+    });
+});
+console.log("Current Cart:",currentCart);
 
         
       
