@@ -8,11 +8,11 @@
         margin:0px;
         padding:1%;}
         h1{
-          font-size: 500%;
+          font-size: 800%;
           padding: 10%;
         }
         .first{
-          font-size: 250%;
+          font-size: 100px;
         }
         .head{
           font-size: 250%;
@@ -22,10 +22,10 @@
           background-color: aquamarine;
           border:0px;
           padding: 0px;
-          margin: 0px;
+          margin: 100px;
           position: relative;
-          top:-75px;
-          left:-7%;
+          top:10px;
+          left:7%;
         }
         .buttons button{
           
@@ -34,7 +34,7 @@
            border:none;
            padding:12px 24px;
            border-radius:100px;
-           font-size:16px;
+           font-size:50px;
            font-weight:600;
            cursor:pointer;
            transition:all 0.3s ease;
@@ -46,11 +46,18 @@
         }
         #carttext{
           position: relative;
-          left:37%;
-          top:-110px;
+          left:39%;
+          top:-140px;
+          font-size:30px;
       }
       #quantity{
         border-radius:50px;
+        font-size: 50px;
+      }
+      #qty{
+        font-size:40px;}
+      .list{
+        font-size:50px;
       }
     </style>
     </head>
@@ -58,19 +65,19 @@
         <h1>Vanilla Cake</h1>
         <img src="images (8).jpg" width="100%" >
         <h2><strong class="head">Dry Ingredients:</strong><br></h2>
-        <p class="first"><ol><li> All-purpose flour </li><li>Baking powder</li><li>Salt</li><li>Granulated white sugar</li></ol><br>
+        <p class="first"><ol class="list"><li> All-purpose flour </li><li>Baking powder</li><li>Salt</li><li>Granulated white sugar</li></ol><br>
         <h2>  <strong class="head">Wet Ingredients:</strong><br></h2>
-           <ol><li>Unsalted butter</li><li>Vegetable oil</li><li>Eggs</li><li>Vanilla extract</li><li>Milk</li></ol></p>
+           <ol class="list"><li>Unsalted butter</li><li>Vegetable oil</li><li>Eggs</li><li>Vanilla extract</li><li>Milk</li></ol></p>
         <h2>Allergens</h2>
-        <p class="first">Contains: <ul><li> Eggs</li><li> Milk</li><li> Wheat (Gluten)</li></ul><br>
+        <p class="first">Contains: <ul class="list"><li> Eggs</li><li> Milk</li><li> Wheat (Gluten)</li></ul><br>
             May contain traces of: Tree Nuts, Peanuts, Soy.</p>
-            <h4>price</h4>
-            <label >Quantity</label>
+            <h3 class="quantity">price</h3>
+            <label id="qty" >Quantity</label>
             <input type="text" id="quantity" name="quantity" min="1" value="1">
-            <p>Total:£<span id="total">20,000.00</span></p>
+            <p class="quantity" >Total:£<span id="total">20,000.00</span></p>
             <a class="buttons" href="index.html"><button>Back to menu</button></a>
             <a class="buttons" href="order.html"><button>checkout Now</button></a>
-            <button id="cart" onclick=addToCart()><img src="cart image.png" width="8%" height="10%"></button>
+            <button id="cart" onclick=addToCart()><img src="cart image.png" width="15%" height="10%"></button>
             <h6 id="carttext">Add to cart</h6>
             <script>
                 const quantityInput = document.getElementById("quantity");
