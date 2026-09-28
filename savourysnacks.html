@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Savoury Snacks</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff8f3;
+            color: #4b2e24;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .snacks-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .snack-row {
+            display: grid;
+            grid-template-columns: 1fr 100px 120px;
+            gap: 15px;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .snack-name {
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .unit-price {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .quantity {
+            width: 60px;
+            padding: 9px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 16px;
+        }
+
+        .item-total {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .grand-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid #4b2e24;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .order-button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 8px;
+            background: #7b452c;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .order-button:hover {
+            background: #5e321f;
+        }
+        .success {
+      display: none;
+      margin-top: 25px;
+      padding: 20px;
+      background: #eaf8ee;
+      border: 1px solid #9bd4aa;
+      border-radius: 10px;
+      color: #246b35;
+    }
+
+    .error {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff0f0;
+      border: 1px solid #e3aaaa;
+      border-radius: 10px;
+      color: #a32626;
+    }
+    .cart-count {
+      text-align: center;
+      margin-top: 12px;
+      color: #666;
+      font-size: 14px;
+    }
+    .add-cart {
+      background: #b83280;
+    }
+
+    .add-cart:hover {
+      background: #982667;
+    }
+
+    .go-cart {
+      background: #333;
+    }
+
+    .go-cart:hover {
+      background: #111;
+    }
+    .back-button {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 9px;
+      background: #eee;
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 25px;
+  border: none;
+  border-radius: 9px;
+  background: #b83280;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #982667;
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+
+
+        @media (max-width: 600px) {
+            .snack-row {
+                grid-template-columns: 1fr 70px 100px;
+                gap: 8px;
+            }
+
+            .snack-name {
+                font-size: 15px;
+            }
+
+            .item-total {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="snacks-container">
+
+    <h1>Savoury Snacks</h1>
+
+    <p class="intro">
+        Choose your favourite snacks and select the quantity you'd like.
+    </p>
+
+    <!-- Egg Roll -->
+    <div class="snack-row">
+        <div>
+            <div class="snack-name">Egg Roll</div>
+            <div class="unit-price">₦800 each</div>
+        </div>
+
+        <input
+            type="number"
+            class="quantity"
+            min="0"
+            value="0"
+            data-price="800"
+        >
+
+        <div class="item-total">₦0</div>
+    </div>
+
+
+    <!-- Meat Pie -->
+    <div class="snack-row">
+        <div>
+            <div class="snack-name">Meat Pie</div>
+            <div class="unit-price">₦1,000 each</div>
+        </div>
+
+        <input
+            type="number"
+            class="quantity"
+            min="0"
+            value="0"
+            data-price="1000"
+        >
+
+        <div class="item-total">₦0</div>
+    </div>
+
+
+    <!-- Chicken Pie -->
+    <div class="snack-row">
+        <div>
+            <div class="snack-name">Chicken Pie</div>
+            <div class="unit-price">₦1,200 each</div>
+        </div>
+
+        <input
+            type="number"
+            class="quantity"
+            min="0"
+            value="0"
+            data-price="1200"
+        >
+
+        <div class="item-total">₦0</div>
+    </div>
+
+
+    <!-- Fish Roll -->
+    <div class="snack-row">
+        <div>
+            <div class="snack-name">Fish Roll</div>
+            <div class="unit-price">₦600 each</div>
+        </div>
+
+        <input
+            type="number"
+            class="quantity"
+            min="0"
+            value="0"
+            data-price="600"
+        >
+
+        <div class="item-total">₦0</div>
+    </div>
+
+
+    <!-- Samosa -->
+    <div class="snack-row">
+        <div>
+            <div class="snack-name">Samosa</div>
+            <div class="unit-price">₦500 each</div>
+        </div>
+
+        <input
+            type="number"
+            class="quantity"
+            min="0"
+            value="0"
+            data-price="500"
+        >
+
+        <div class="item-total">₦0</div>
+    </div>
+
+
+    <!-- Spring Roll -->
+    <div class="snack-row">
+        <div>
+            <div class="snack-name">Spring Roll</div>
+            <div class="unit-price">₦500 each</div>
+        </div>
+
+        <input
+            type="number"
+            class="quantity"
+            min="0"
+            value="0"
+            data-price="500"
+        >
+
+        <div class="item-total">₦0</div>
+    </div>
+
+
+    <!-- GRAND TOTAL -->
+    <div class="grand-total">
+        <span>Total</span>
+        <span id="grandTotal">₦0</span>
+    </div>
+       
+        <!-- ADD TO CART -->
+
+  <button
+    type="button"
+    class="add-cart"
+    onclick="addSavoryToCart()"
+  >
+    🛒 ADD SNACK TO CART
+  </button>
+
+
+  <button
+    type="button"
+    class="go-cart"
+    onclick="goToCart()"
+  >
+    VIEW CART / CHECKOUT
+  </button>
+
+
+  <div class="cart-count" id="cartCount">
+    Your cart is currently empty.
+  </div>
+
+
+  <div class="error" id="errorMessage"></div>
+
+
+  <div class="success" id="successMessage">
+
+    <h3>🎉 Cake Added to Cart!</h3>
+
+    <p>
+      Your customized cake has been added to your cart.
+    </p>
+
+    <p>
+      You can continue shopping or proceed to checkout.
+    </p>
+
+  </div>
+
+    
+
+</div>
+<a href="index.html" class="back-button">
+            ← Back to menu
+        </a>
+
+
+<script>
+
+    const quantities = document.querySelectorAll(".quantity");
+    const grandTotal = document.getElementById("grandTotal");
+
+    function calculateTotal() {
+
+        let total = 0;
+
+        quantities.forEach(function(input) {
+
+            let quantity = Number(input.value);
+            let price = Number(input.dataset.price);
+
+            // Prevent negative quantities
+            if (quantity < 0 || isNaN(quantity)) {
+                quantity = 0;
+                input.value = 0;
+            }
+
+            let itemTotal = quantity * price;
+
+            // Find the item's total display
+            const itemTotalElement =
+                input.parentElement.querySelector(".item-total");
+
+            itemTotalElement.textContent =
+                "₦" + itemTotal.toLocaleString();
+
+            total += itemTotal;
+        });
+
+        grandTotal.textContent =
+            "₦" + total.toLocaleString();
+    }
+
+
+    quantities.forEach(function(input) {
+
+        input.addEventListener("input", calculateTotal);
+
+    });
+
+
+    // Calculate when page first loads
+    calculateTotal();
+    /* =========================================================
+   ADD SNACKS TO EXISTING CART
+========================================================= */
+
+
+async function addSavoryToCart() {
+
+  const errorBox =
+    document.getElementById("errorMessage");
+
+
+  const successBox =
+    document.getElementById("successMessage");
+
+
+  errorBox.style.display =
+    "none";
+
+
+  successBox.style.display =
+
+    "none";
+
+    
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const quantities = document.querySelectorAll(".quantity");
+
+    quantities.forEach(function(input) {
+
+        const quantity = parseInt(input.value) || 0;
+
+        // Don't add snacks with quantity 0
+        if (quantity <= 0) {
+            return;
+        }
+
+        // Get the snack name
+        const name = input
+            .parentElement
+            .querySelector(".snack-name")
+            .textContent
+            .trim();
+
+        // Get the price
+        const price = parseInt(input.dataset.price);
+
+        const product = {
+            name: name,
+            quantity: quantity,
+            price: price,
+            total: quantity * price
+        };
+
+        // Check whether this particular snack is already in cart
+        const existingProduct = cart.find(
+            item => item.name === product.name
+        );
+
+        if (existingProduct) {
+
+            existingProduct.quantity += quantity;
+
+            existingProduct.total =
+                existingProduct.quantity * existingProduct.price;
+
+        } else {
+
+            cart.push(product);
+
+        }
+
+    });
+
+    // Save cart
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert("Your savoury snacks have been added to your cart!");
+
+     //Optional:
+     //window.location.href = "order.html";
+}
+
+ /*
+     Update cart display
+  */
+
+  updateCartCount();
+
+
+  /*
+     Show success
+  */
+
+  successBox.style.display =
+    "block";
+
+
+  /*
+     Scroll to success message
+  */
+
+  successBox.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+
+  /*
+     Change button temporarily
+  */
+
+  const button =
+    document.querySelector(".add-cart");
+
+
+  const originalText =
+    button.textContent;
+
+
+  button.textContent =
+    "✓ CAKE ADDED TO CART";
+
+
+  setTimeout(function() {
+
+    button.textContent =
+      originalText;
+
+  }, 2500);
+
+
+
+
+/* =========================================================
+   UPDATE CART COUNT
+========================================================= */
+
+function updateCartCount() {
+
+  const cart =
+    JSON.parse(
+      localStorage.getItem("cart")
+    ) || [];
+
+
+  const count =
+    cart.reduce(function(total, item) {
+
+      return total +
+        Number(item.quantity || 0);
+
+    }, 0);
+
+
+  const cartCount =
+    document.getElementById("cartCount");
+
+
+  if (!cart.length) {
+
+    cartCount.textContent =
+      "Your cart is currently empty.";
+
+    return;
+
+  }
+
+
+  cartCount.textContent =
+    "🛒 Your cart contains " +
+    count +
+    " item(s).";
+
+}
+
+
+/* =========================================================
+   GO TO EXISTING CART
+========================================================= */
+
+function goToCart() {
+
+  /*
+     CHANGE cart.html BELOW ONLY IF YOUR
+     EXISTING CART PAGE HAS A DIFFERENT NAME.
+
+     For example, if your cart page is order.html,
+     change it to:
+
+     window.location.href = "order.html";
+  */
+
+  window.location.href =
+    "order.html";
+
+}
+
+
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+calculateTotal();
+
+updateCartCount();
+        
+</script>
+
+</body>
+</html>

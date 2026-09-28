@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> Coconut Cookies</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #fff8f3;
+            color: #4b2e24;
+        }
+
+        .product-page {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 45%;
+            border-radius: 15px;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-info h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 17px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .price {
+            font-size: 25px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .quantity {
+            width: 60px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .add-cart {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #7b452c;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .add-cart:hover {
+            background: #5e321f;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 25px;
+            color: #7b452c;
+            text-decoration: none;
+        }
+        .orderbtn button{
+          display: block;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background:blue;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .orderbtn:hover button{
+            background:blue;  
+        }
+        .success {
+      display: none;
+      margin-top: 25px;
+      padding: 20px;
+      background: #eaf8ee;
+      border: 1px solid #9bd4aa;
+      border-radius: 10px;
+      color: #246b35;
+    }
+
+    .error {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff0f0;
+      border: 1px solid #e3aaaa;
+      border-radius: 10px;
+      color: #a32626;
+    }
+    .cart-count {
+      text-align: center;
+      margin-top: 12px;
+      color: #666;
+      font-size: 14px;
+    }
+    .add-cart {
+      background: #b83280;
+    }
+
+    .add-cart:hover {
+      background: #982667;
+    }
+
+    .go-cart {
+      background: #333;
+    }
+
+    .go-cart:hover {
+      background: #111;
+    }
+    .back-button {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 9px;
+      background: #eee;
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 25px;
+  border: none;
+  border-radius: 9px;
+  background: #b83280;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #982667;
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+
+
+        @media (max-width: 700px) {
+            .product-card {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .product-image {
+                width: 100%;
+            }
+
+            .product-info {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="product-page">
+
+        <div class="product-card">
+
+            <img 
+                src="coconut cookies.jpg"
+                alt=" Coconut Cookies"
+                class="product-image"
+            >
+
+            <div class="product-info">
+
+                <h1> Cocunut Cookies</h1>
+
+                <p class="description">
+                    Deliciously crisp and lightly sweet,our 
+                    coconut cookies are packed with irresistable
+                    coconut flavour.A perfect little treat for any
+                    time of the day
+                </p>
+
+                <p class="price"  >Total:₦<span id="total">3,500.00</span></p>
+
+                <label for="quantity">Quantity:</label>
+                <input 
+                    type="number" 
+                    id="quantity"
+                    class="quantity"
+                    value="1"
+                    min="1"
+                ><p>Dozen(s)</p>
+
+               
+
+                     
+                
+
+            </div>
+            
+            
+
+        </div>
+       <!-- ADD TO CART -->
+
+  <button
+    type="button"
+    class="add-cart"
+    onclick="addToCart()"
+  >
+    🛒 ADD COOKIES TO CART
+  </button>
+
+
+  <button
+    type="button"
+    class="go-cart"
+    onclick="goToCart()"
+  >
+    VIEW CART / CHECKOUT
+  </button>
+
+
+  <div class="cart-count" id="cartCount">
+    Your cart is currently empty.
+  </div>
+
+
+  <div class="error" id="errorMessage"></div>
+
+
+  <div class="success" id="successMessage">
+
+    <h3>🎉 Cookies Added to Cart!</h3>
+
+    <p>
+      Your cookies have been added to your cart.
+    </p>
+
+    <p>
+      You can continue shopping or proceed to checkout.
+    </p>
+
+  </div>
+
+        <a href="index.html" class="back-button">
+            ← Back to menu
+        </a>
+
+    </div>
+    <script>
+                const quantityInput = document.getElementById("quantity");
+                const totalSpan = document.getElementById("total");
+                const price = 3500.00;
+                
+                quantityInput.addEventListener('input',function () {
+                  const quantity = parseInt(quantityInput.value);
+                  const amount = quantity * price;
+                  totalSpan.textContent = amount.toLocaleString() });
+                  /* =========================================================
+   ADD PRODUCT TO CART
+========================================================= */
+
+function addToCart() {
+
+    const quantity =
+        parseInt(quantityInput.value) || 1;
+
+
+    /* Prevent invalid quantity */
+
+    if (quantity < 1) {
+
+        alert("Please enter a valid quantity.");
+
+        return;
+    }
+
+
+    /* Create product */
+
+    const product = {
+
+        name: "Coconut Cookies",
+
+        quantity: quantity,
+
+        price: price,
+
+        total: quantity * price
+
+    };
+
+
+    /* Get existing cart */
+
+    let cart =
+        JSON.parse(
+            localStorage.getItem("cart")
+        ) || [];
+
+
+    /* Check whether Double Chocolate Cookies
+       already exist in the cart */
+
+    const existingProduct =
+        cart.find(function(item) {
+
+            return item.name === product.name;
+
+        });
+
+
+    /* If product already exists,
+       increase the quantity */
+
+    if (existingProduct) {
+
+        existingProduct.quantity += quantity;
+
+        existingProduct.total =
+            existingProduct.quantity *
+            existingProduct.price;
+
+    }
+
+    /* Otherwise add it as a new product */
+
+    else {
+
+        cart.push(product);
+
+    }
+
+
+    /* Save updated cart */
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+
+    /* Update cart display */
+
+    updateCartCount();
+
+
+    /* Show success message */
+
+    alert(
+        quantity +
+        " Dozen(s) Coconut Cookies added to cart!"
+    );
+
+
+    /* Change button temporarily */
+
+    const button =
+        document.querySelector(".add-cart");
+
+
+    if (button) {
+
+        const originalText =
+            button.textContent;
+
+
+        button.textContent =
+            "✓ COOKIES ADDED TO CART";
+
+
+        setTimeout(function() {
+
+            button.textContent =
+                originalText;
+
+        }, 2500);
+
+    }
+
+}
+
+
+/* =========================================================
+   UPDATE CART COUNT
+========================================================= */
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(
+            localStorage.getItem("cart")
+        ) || [];
+
+
+    const count =
+        cart.reduce(function(total, item) {
+
+            return total +
+                Number(item.quantity || 0);
+
+        }, 0);
+
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+
+    /* If cartCount doesn't exist,
+       don't cause an error */
+
+    if (!cartCount) {
+
+        return;
+
+    }
+
+
+    /* Empty cart */
+
+    if (cart.length === 0) {
+
+        cartCount.textContent =
+            "Your cart is currently empty.";
+
+        return;
+
+    }
+
+
+    /* Cart contains products */
+
+    cartCount.textContent =
+        "🛒 Your cart contains " +
+        count +
+        " item(s).";
+
+}
+
+
+/* =========================================================
+   GO TO CART / CHECKOUT
+========================================================= */
+
+function goToCart() {
+
+    window.location.href =
+        "order.html";
+
+}
+
+
+/* =========================================================
+   INITIALIZE PAGE
+========================================================= */
+
+calculateTotal();
+
+updateCartCount();
+
+                
+              
+               
+              </script>
+            </body>
+</html>
+
+</body>
+</html>
