@@ -1,104 +1,1348 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>baking order website</title>
-    <style>body{background-color: aquamarine;
-        border: 0px solid rebeccapurple;
-        margin:10px;
-        padding:0;}
-        h1{
-          font-size: 500%;
-          padding: 10px;
-          margin:10px;
-        }
-        .first{
-          font-size: 250%;
-        }
-        .head{
-          font-size: 250%;
-          padding: 10%;
-        }
-        #cart{
-          background-color: aquamarine;
-          border:0px;
-          padding: 0px;
-          margin: 0px;
-          position: relative;
-          top:-75px;
-          left:-5%;
-        }
-        .buttons button{
-          
-           background: blue;
-           color:white;
-           border:none;
-           padding:12px 24px;
-           border-radius:100px;
-           font-size:16px;
-           font-weight:600;
-           cursor:pointer;
-           transition:all 0.3s ease;
-           
-        }
-        .buttons button:hover{
-            transform:translateY(-2px);
-            box-shadow:0 6px 15px rgba(0.2);
-        }
-        #carttext{
-          position: relative;
-          left:37%;
-          top:-110px;
-      }
-      #quantity{
-        border-radius:50px;
-      }</style>
-    </head>
-    <body>
-        <h1>Cupcakes</h1>
-        <img src="images (11).jpg" width="100%" >
-        
-        <p class="first"><strong id="head">Ingredients:</strong><br><ol><li> unsalted butter</li><li> caster sugar</li><li> eggs</li><li> vanilla extract</li><li>self-raising flour</li><li> salt</li><li> milk</li></ol><br>
-        <h2>Allergens</h2>
-        <p class="first">Contains:<br><ol><li>gluten (wheat)</li><li>dairy (milk and butter)</li><li>eggs</li><li>soy or tree nuts</li></ol></p>
-        <h4>price</h4>
-        <label >Quantity</label>
-            <input type="text" id="quantity" name="quantity" min="1" value="1">
-            <p>Total:£<span id="total">500.00</span></p>
-        <a class="buttons" href="index.html"><button>Back to menu</button></a>
-        <a class="buttons" href="order.html"><button>Order Now</button></a>
-        <button id="cart" onclick=addToCart()><img src="cart image.png" width="8%" height="10%"></button>
-            <h6 id="carttext">Add to cart</h6>
-            <script>
-                const quantityInput = document.getElementById("quantity");
-                const totalSpan = document.getElementById("total");
-                const price = 500.00;
-                
-                quantityInput.addEventListener('input',function () {
-                  const quantity = parseInt(quantityInput.value);
-                  const amount = quantity * price;
-                  total.textContent = amount.toLocaleString() });
-                
-              
-                function addToCart() {
-                  const quantity = parseInt(quantityInput.value);
-                  const product = {
-                    name: "CupCake",
-                    quantity: quantity,
-                    price: price,
-                    total: quantity * price
-                  };
-                let cart = JSON.parse(localStorage.getItem("cart")) || [];
-                const existingProduct = cart.find(item => item.name === product.name);
-                if (existingProduct) {
-                  existingProduct.quantity += quantity;
-                  existingProduct.total = existingProduct.quantity * existingProduct.price;
-                } else {
-                  cart.push(product);
-                }
-                localStorage.setItem("cart", JSON.stringify(cart));
-                alert(quantity+ " CupCake(s) added to cart!");
-                }
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-              </script>
-            </body>
+  <title>Customized Cupcakes | Bakery</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8fb;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #8b3a62;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 30px;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      font-size: 15px;
+    }
+
+    .container {
+      width: 95%;
+      max-width: 900px;
+      margin: 25px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      color: #8b3a62;
+      margin-bottom: 20px;
+      font-size: 23px;
+    }
+
+    .section-title {
+      margin-top: 25px;
+      margin-bottom: 12px;
+      padding-bottom: 7px;
+      border-bottom: 2px solid #f1d5e2;
+      color: #8b3a62;
+      font-size: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 17px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+      color: #444;
+    }
+
+    select,
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      background: white;
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #8b3a62;
+      box-shadow: 0 0 0 2px rgba(139, 58, 98, 0.08);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .price-box {
+      background: #fff0f6;
+      border: 1px solid #f1c7d9;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 25px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 7px 0;
+      font-size: 15px;
+    }
+
+    .price-row span:last-child {
+      font-weight: bold;
+    }
+
+    .total-row {
+      border-top: 2px solid #dca8bd;
+      margin-top: 10px;
+      padding-top: 13px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #8b3a62;
+    }
+
+    .button-area {
+      margin-top: 25px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 25px;
+      padding: 13px 22px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .add-btn {
+      background: #8b3a62;
+      color: white;
+      flex: 1;
+    }
+
+    .cart-btn {
+      background: #eee;
+      color: #8b3a62;
+      flex: 1;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.92;
+    }
+
+    /*
+      CART STATUS
+    */
+
+    .cart-status {
+      width: 100%;
+      text-align: center;
+      margin: 12px 0 3px;
+      padding: 11px 15px;
+      border-radius: 10px;
+      background: #fff0f6;
+      color: #8b3a62;
+      font-size: 15px;
+      font-weight: bold;
+      border: 1px solid #f1d5e2;
+    }
+
+    .cart-status.empty {
+      background: #f7f7f7;
+      color: #666;
+      border-color: #ddd;
+    }
+
+    .cart-status.has-items {
+      background: #f8e6ef;
+      color: #8b3a62;
+    }
+
+    .cart-message {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      display: none;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .success {
+      background: #e5f7e9;
+      color: #217a35;
+    }
+
+    .error {
+      background: #fde7e7;
+      color: #a52828;
+    }
+
+    .required {
+      color: #c00000;
+    }
+
+    @media (max-width: 700px) {
+
+      header h1 {
+        font-size: 25px;
+      }
+
+      .container {
+        width: 94%;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      .two-columns {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .button-area {
+        flex-direction: column;
+      }
+
+      .add-btn,
+      .cart-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Customized Cupcakes</h1>
+    <p>Create cupcakes specially made for your occasion.</p>
+  </header>
+
+
+  <div class="container">
+
+    <div class="card">
+
+      <h2>Customize Your Cupcakes</h2>
+
+
+      <!-- =========================
+           CUPCAKE DETAILS
+      ========================== -->
+
+      <h3 class="section-title">
+        Cupcake Details
+      </h3>
+
+
+      <div class="two-columns">
+
+        <div class="form-group">
+
+          <label for="cupcakeSize">
+            Cupcake Size <span class="required">*</span>
+          </label>
+
+          <select id="cupcakeSize">
+
+            <option value="Standard" data-price="1500">
+              Standard - ₦1,500 each
+            </option>
+
+            <option value="Large" data-price="2000">
+              Large - ₦2,000 each
+            </option>
+
+            <option value="Mini" data-price="1000">
+              Mini - ₦1,000 each
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="quantity">
+            Quantity <span class="required">*</span>
+          </label>
+
+          <input
+            type="number"
+            id="quantity"
+            min="1"
+            value="1"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           FLAVOUR
+      ========================== -->
+
+      <div class="form-group">
+
+        <label for="cupcakeFlavour">
+          Cupcake Flavour <span class="required">*</span>
+        </label>
+
+        <select id="cupcakeFlavour">
+
+          <option value="Vanilla" data-price="0">
+            Vanilla - +₦0
+          </option>
+
+          <option value="Chocolate" data-price="300">
+            Chocolate - +₦300
+          </option>
+
+          <option value="Red Velvet" data-price="500">
+            Red Velvet - +₦500
+          </option>
+
+          <option value="Marble" data-price="400">
+            Marble - +₦400
+          </option>
+
+          <option value="Carrot" data-price="500">
+            Carrot - +₦500
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- =========================
+           FILLING
+      ========================== -->
+
+      <div class="form-group">
+
+        <label for="filling">
+          Filling
+        </label>
+
+        <select id="filling">
+
+          <option value="No Filling" data-price="0">
+            No Filling - +₦0
+          </option>
+
+          <option value="Vanilla Cream" data-price="300">
+            Vanilla Cream - +₦300
+          </option>
+
+          <option value="Chocolate Cream" data-price="400">
+            Chocolate Cream - +₦400
+          </option>
+
+          <option value="Caramel" data-price="500">
+            Caramel - +₦500
+          </option>
+
+          <option value="Strawberry" data-price="500">
+            Strawberry - +₦500
+          </option>
+
+          <option value="Cream Cheese" data-price="600">
+            Cream Cheese - +₦600
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- =========================
+           ICING & DECORATION
+      ========================== -->
+
+      <h3 class="section-title">
+        Icing & Decoration
+      </h3>
+
+
+      <div class="form-group">
+
+        <label for="icing">
+          Icing
+        </label>
+
+        <select id="icing">
+
+          <option value="Buttercream" data-price="500">
+            Buttercream - +₦500
+          </option>
+
+          <option value="Whipped Cream" data-price="600">
+            Whipped Cream - +₦600
+          </option>
+
+          <option value="Cream Cheese Frosting" data-price="700">
+            Cream Cheese Frosting - +₦700
+          </option>
+
+          <option value="Chocolate Ganache" data-price="800">
+            Chocolate Ganache - +₦800
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="icingColour">
+          Icing Colour
+        </label>
+
+        <input
+          type="text"
+          id="icingColour"
+          placeholder="e.g. Pink, blue, white and gold"
+        >
+
+      </div>
+
+
+      <!-- =========================
+           TOPPINGS
+      ========================== -->
+
+      <div class="form-group">
+
+        <label for="toppings">
+          Toppings
+        </label>
+
+        <select id="toppings">
+
+          <option value="No Toppings" data-price="0">
+            No Toppings - +₦0
+          </option>
+
+          <option value="Sprinkles" data-price="200">
+            Sprinkles - +₦200
+          </option>
+
+          <option value="Chocolate Chips" data-price="300">
+            Chocolate Chips - +₦300
+          </option>
+
+          <option value="Oreo Crumbs" data-price="400">
+            Oreo Crumbs - +₦400
+          </option>
+
+          <option value="Mixed Toppings" data-price="500">
+            Mixed Toppings - +₦500
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- =========================
+           DECORATION
+      ========================== -->
+
+      <div class="form-group">
+
+        <label for="decoration">
+          Decoration Style
+        </label>
+
+        <select id="decoration">
+
+          <option value="Basic Decoration" data-price="0">
+            Basic Decoration - +₦0
+          </option>
+
+          <option value="Simple Piping" data-price="300">
+            Simple Piping - +₦300
+          </option>
+
+          <option value="Rosette" data-price="500">
+            Rosette - +₦500
+          </option>
+
+          <option value="Floral" data-price="700">
+            Floral - +₦700
+          </option>
+
+          <option value="Luxury Decoration" data-price="1000">
+            Luxury Decoration - +₦1,000
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="decorationExtras">
+          Decoration Details
+        </label>
+
+        <textarea
+          id="decorationExtras"
+          placeholder="Describe any special decoration you would like."
+        ></textarea>
+
+      </div>
+
+
+      <!-- =========================
+           TOPPER
+      ========================== -->
+
+      <div class="form-group">
+
+        <label for="cupcakeTopper">
+          Cupcake Topper
+        </label>
+
+        <select id="cupcakeTopper">
+
+          <option value="No Topper" data-price="0">
+            No Topper - +₦0
+          </option>
+
+          <option value="Simple Paper Topper" data-price="300">
+            Simple Paper Topper - +₦300
+          </option>
+
+          <option value="Birthday Topper" data-price="500">
+            Birthday Topper - +₦500
+          </option>
+
+          <option value="Custom Topper" data-price="800">
+            Custom Topper - +₦800
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- =========================
+           OCCASION
+      ========================== -->
+
+      <h3 class="section-title">
+        Occasion Details
+      </h3>
+
+
+      <div class="form-group">
+
+        <label for="cupcakePurpose">
+          Purpose / Occasion
+        </label>
+
+        <select id="cupcakePurpose">
+
+          <option value="General">
+            General
+          </option>
+
+          <option value="Birthday">
+            Birthday
+          </option>
+
+          <option value="Wedding">
+            Wedding
+          </option>
+
+          <option value="Naming Ceremony">
+            Naming Ceremony
+          </option>
+
+          <option value="Graduation">
+            Graduation
+          </option>
+
+          <option value="Baby Shower">
+            Baby Shower
+          </option>
+
+          <option value="Anniversary">
+            Anniversary
+          </option>
+
+          <option value="Corporate Event">
+            Corporate Event
+          </option>
+
+          <option value="Other">
+            Other
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="cupcakeMessage">
+          Message on Cupcake
+        </label>
+
+        <textarea
+          id="cupcakeMessage"
+          placeholder="e.g. Happy Birthday Aisha!"
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="specialInstructions">
+          Special Instructions
+        </label>
+
+        <textarea
+          id="specialInstructions"
+          placeholder="Any other instructions for your cupcakes?"
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="dateNeeded">
+          Date Needed
+        </label>
+
+        <input
+          type="date"
+          id="dateNeeded"
+        >
+
+      </div>
+
+
+      <!-- =========================
+           PRICE SUMMARY
+      ========================== -->
+
+      <div class="price-box">
+
+        <div class="price-row">
+          <span>Cupcake Price:</span>
+          <span id="cupcakeBasePrice">₦0</span>
+        </div>
+
+        <div class="price-row">
+          <span>Flavour:</span>
+          <span id="flavourPrice">₦0</span>
+        </div>
+
+        <div class="price-row">
+          <span>Filling:</span>
+          <span id="fillingPrice">₦0</span>
+        </div>
+
+        <div class="price-row">
+          <span>Icing:</span>
+          <span id="icingPrice">₦0</span>
+        </div>
+
+        <div class="price-row">
+          <span>Toppings:</span>
+          <span id="toppingPrice">₦0</span>
+        </div>
+
+        <div class="price-row">
+          <span>Decoration:</span>
+          <span id="decorationPrice">₦0</span>
+        </div>
+
+        <div class="price-row">
+          <span>Topper:</span>
+          <span id="topperPrice">₦0</span>
+        </div>
+
+        <div class="price-row">
+          <span>Quantity:</span>
+          <span id="quantityDisplay">1</span>
+        </div>
+
+        <div class="price-row total-row">
+          <span>Total:</span>
+          <span id="totalPrice">₦0</span>
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           BUTTONS
+      ========================== -->
+
+      <div class="button-area">
+
+        <button
+          type="button"
+          class="add-btn"
+          id="addToCartButton"
+          onclick="addToCart()"
+        >
+          Add Customized Cupcakes to Cart
+        </button>
+
+        <button
+          type="button"
+          class="cart-btn"
+          onclick="goToCart()"
+        >
+          View Cart
+        </button>
+
+      </div>
+
+
+      <!-- =========================
+           LIVE CART STATUS
+      ========================== -->
+
+      <div
+        id="cartStatus"
+        class="cart-status empty"
+      >
+        🛒 Your cart is empty
+      </div>
+
+
+      <!-- =========================
+           SUCCESS MESSAGE
+      ========================== -->
+
+      <div
+        id="cartMessage"
+        class="cart-message"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =========================================
+       HELPER FUNCTION
+    ========================================= */
+
+    function getElement(id) {
+      return document.getElementById(id);
+    }
+
+
+    function getValue(id) {
+
+      const element = getElement(id);
+
+      if (!element) {
+        return "";
+      }
+
+      return element.value.trim();
+
+    }
+
+
+    function getSelectedPrice(id) {
+
+      const element = getElement(id);
+
+      if (!element) {
+        return 0;
+      }
+
+      const selectedOption =
+        element.options[element.selectedIndex];
+
+      return Number(
+        selectedOption.dataset.price || 0
+      );
+
+    }
+
+
+    function formatCurrency(amount) {
+
+      return "₦" + Number(amount).toLocaleString(
+        "en-NG",
+        {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2
+        }
+      );
+
+    }
+
+
+    /* =========================================
+       PRICE CALCULATOR
+    ========================================= */
+
+    function calculateCupcakePrice() {
+
+      const quantity =
+        Math.max(
+          1,
+          Number(
+            getElement("quantity").value
+          ) || 1
+        );
+
+
+      const cupcakeBasePrice =
+        getSelectedPrice("cupcakeSize");
+
+      const flavourPrice =
+        getSelectedPrice("cupcakeFlavour");
+
+      const fillingPrice =
+        getSelectedPrice("filling");
+
+      const icingPrice =
+        getSelectedPrice("icing");
+
+      const toppingPrice =
+        getSelectedPrice("toppings");
+
+      const decorationPrice =
+        getSelectedPrice("decoration");
+
+      const topperPrice =
+        getSelectedPrice("cupcakeTopper");
+
+
+      /*
+        PRICE OF ONE CUPCAKE
+      */
+
+      const pricePerCupcake =
+        cupcakeBasePrice +
+        flavourPrice +
+        fillingPrice +
+        icingPrice +
+        toppingPrice +
+        decorationPrice +
+        topperPrice;
+
+
+      /*
+        TOTAL FOR ALL CUPCAKES
+      */
+
+      const cupcakesSubtotal =
+        pricePerCupcake * quantity;
+
+
+      /* DISPLAY */
+
+      getElement("cupcakeBasePrice").textContent =
+        formatCurrency(
+          cupcakeBasePrice * quantity
+        );
+
+      getElement("flavourPrice").textContent =
+        formatCurrency(
+          flavourPrice * quantity
+        );
+
+      getElement("fillingPrice").textContent =
+        formatCurrency(
+          fillingPrice * quantity
+        );
+
+      getElement("icingPrice").textContent =
+        formatCurrency(
+          icingPrice * quantity
+        );
+
+      getElement("toppingPrice").textContent =
+        formatCurrency(
+          toppingPrice * quantity
+        );
+
+      getElement("decorationPrice").textContent =
+        formatCurrency(
+          decorationPrice * quantity
+        );
+
+      getElement("topperPrice").textContent =
+        formatCurrency(
+          topperPrice * quantity
+        );
+
+      getElement("quantityDisplay").textContent =
+        quantity;
+
+      getElement("totalPrice").textContent =
+        formatCurrency(
+          cupcakesSubtotal
+        );
+
+
+      return {
+
+        quantity,
+
+        cupcakeBasePrice,
+        flavourPrice,
+        fillingPrice,
+        icingPrice,
+        toppingPrice,
+        decorationPrice,
+        topperPrice,
+
+        pricePerCupcake,
+
+        cupcakesSubtotal
+
+      };
+
+    }
+
+
+    /* =========================================
+       UNIQUE CART ITEM ID
+    ========================================= */
+
+    function createUniqueCartItemId() {
+
+      return (
+        "cupcake-" +
+        Date.now() +
+        "-" +
+        Math.random()
+          .toString(36)
+          .substring(2, 10)
+      );
+
+    }
+
+
+    /* =========================================
+       ADD TO CART
+    ========================================= */
+
+    function addToCart() {
+
+      const prices =
+        calculateCupcakePrice();
+
+
+      /*
+        A NEW cart item is created EVERY
+        time the customer clicks Add to Cart.
+
+        This means different customizations
+        will NEVER be merged together.
+      */
+
+      const product = {
+
+        cartItemId:
+          createUniqueCartItemId(),
+
+        name:
+          "Customized Cupcakes",
+
+        productType:
+          "Cupcake",
+
+        quantity:
+          prices.quantity,
+
+        /*
+          PRICE PER CUPCAKE
+        */
+
+        price:
+          prices.pricePerCupcake,
+
+        /*
+          TOTAL FOR THIS PARTICULAR
+          CUSTOMIZED CUPCAKE ORDER
+        */
+
+        total:
+          prices.cupcakesSubtotal,
+
+
+        /* ================================
+           HIDDEN CUSTOMIZATION DETAILS
+        ================================= */
+
+        cupcakeSize:
+          getValue("cupcakeSize"),
+
+        cupcakeFlavour:
+          getValue("cupcakeFlavour"),
+
+        filling:
+          getValue("filling"),
+
+        icing:
+          getValue("icing"),
+
+        icingColour:
+          getValue("icingColour"),
+
+        toppings:
+          getValue("toppings"),
+
+        decoration:
+          getValue("decoration"),
+
+        decorationExtras:
+          getValue("decorationExtras"),
+
+        cupcakeTopper:
+          getValue("cupcakeTopper"),
+
+        cupcakeMessage:
+          getValue("cupcakeMessage"),
+
+        cupcakePurpose:
+          getValue("cupcakePurpose"),
+
+        specialInstructions:
+          getValue("specialInstructions"),
+
+        dateNeeded:
+          getValue("dateNeeded"),
+
+
+        /* ================================
+           INDIVIDUAL PRICE INFORMATION
+        ================================= */
+
+        cupcakeBasePrice:
+          prices.cupcakeBasePrice,
+
+        flavourPrice:
+          prices.flavourPrice,
+
+        fillingPrice:
+          prices.fillingPrice,
+
+        icingPrice:
+          prices.icingPrice,
+
+        toppingPrice:
+          prices.toppingPrice,
+
+        decorationPrice:
+          prices.decorationPrice,
+
+        topperPrice:
+          prices.topperPrice,
+
+
+        createdAt:
+          new Date().toISOString()
+
+      };
+
+
+      /* GET CURRENT CART */
+
+      let cart = [];
+
+      try {
+
+        cart =
+          JSON.parse(
+            localStorage.getItem("cart")
+          ) || [];
+
+      } catch (error) {
+
+        cart = [];
+
+      }
+
+
+      /*
+        IMPORTANT:
+
+        DO NOT SEARCH FOR AN EXISTING
+        CUPCAKE.
+
+        DO NOT MERGE.
+
+        JUST ADD THIS CUSTOMIZATION
+        AS A NEW CART ITEM.
+      */
+
+      cart.push(product);
+
+
+      /* SAVE */
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+      );
+
+
+      /* UPDATE CART STATUS */
+
+      updateCartStatus();
+
+
+      /* SUCCESS MESSAGE */
+
+      showMessage(
+        "Your customized cupcakes have been added to your cart.",
+        "success"
+      );
+
+    }
+
+
+    /* =========================================
+       UPDATE CART STATUS
+    ========================================= */
+
+    function updateCartStatus() {
+
+      let cart = [];
+
+      try {
+
+        cart =
+          JSON.parse(
+            localStorage.getItem("cart")
+          ) || [];
+
+      } catch (error) {
+
+        cart = [];
+
+      }
+
+
+      const cartStatus =
+        getElement("cartStatus");
+
+
+      /*
+        No items
+      */
+
+      if (
+        cart.length === 0
+      ) {
+
+        cartStatus.textContent =
+          "🛒 Your cart is empty";
+
+        cartStatus.className =
+          "cart-status empty";
+
+        return;
+
+      }
+
+
+      /*
+        Count individual cart lines.
+      */
+
+      const numberOfCartItems =
+        cart.length;
+
+
+      /*
+        Count total quantity of goods.
+      */
+
+      const totalQuantity =
+        cart.reduce(
+          function(total, item) {
+
+            return (
+              total +
+              (Number(item.quantity) || 0)
+            );
+
+          },
+          0
+        );
+
+
+      /*
+        Use singular/plural wording.
+      */
+
+      const itemWord =
+        numberOfCartItems === 1
+          ? "item"
+          : "items";
+
+
+      const quantityWord =
+        totalQuantity === 1
+          ? "cupcake"
+          : "cupcakes";
+
+
+      cartStatus.textContent =
+        "🛒 Your cart has " +
+        numberOfCartItems +
+        " " +
+        itemWord +
+        " (" +
+        totalQuantity +
+        " " +
+        quantityWord +
+        " in total)";
+
+
+      cartStatus.className =
+        "cart-status has-items";
+
+    }
+
+
+    /* =========================================
+       SUCCESS / ERROR MESSAGE
+    ========================================= */
+
+    function showMessage(
+      message,
+      type
+    ) {
+
+      const box =
+        getElement("cartMessage");
+
+      box.textContent =
+        message;
+
+      box.className =
+        "cart-message " + type;
+
+      box.style.display =
+        "block";
+
+
+      setTimeout(
+        function() {
+
+          box.style.display =
+            "none";
+
+        },
+        3500
+      );
+
+    }
+
+
+    /* =========================================
+       GO TO CART
+    ========================================= */
+
+    function goToCart() {
+
+      window.location.href =
+        "order.html";
+
+    }
+
+
+    /* =========================================
+       WATCH ALL CUSTOMIZATION FIELDS
+    ========================================= */
+
+    document
+      .querySelectorAll(
+        "select, input"
+      )
+      .forEach(
+        function(element) {
+
+          element.addEventListener(
+            "change",
+            calculateCupcakePrice
+          );
+
+          element.addEventListener(
+            "input",
+            calculateCupcakePrice
+          );
+
+        }
+      );
+
+
+    /* =========================================
+       INITIALIZE PAGE
+    ========================================= */
+
+    calculateCupcakePrice();
+
+    updateCartStatus();
+
+  </script>
+
+</body>
 </html>

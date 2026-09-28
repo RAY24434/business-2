@@ -1,105 +1,1205 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>baking order website</title>
-    <style>
-      body{background-color: aquamarine;
-        border: 0px solid rebeccapurple;
-        margin:0px;
-        padding:1%;}
-        h1{
-          font-size: 500%;
-          padding: 10%;
-        }
-        .first{
-          font-size: 250%;
-        }
-        .head{
-          font-size: 250%;
-          padding: 10%;
-        }
-        #cart{
-          background-color: aquamarine;
-          border:0px;
-          padding: 0px;
-          margin: 0px;
-          position: relative;
-          top:-75px;
-          left:-7%;
-        }
-        .buttons button{
-          
-           background: blue;
-           color:white;
-           border:none;
-           padding:12px 24px;
-           border-radius:100px;
-           font-size:16px;
-           font-weight:600;
-           cursor:pointer;
-           transition:all 0.3s ease;
-           
-        }
-        .buttons button:hover{
-            transform:translateY(-2px);
-            box-shadow:0 6px 15px rgba(0.2);
-        }
-        #carttext{
-          position: relative;
-          left:37%;
-          top:-110px;
-      }
-      #quantity{
-        border-radius:50px;
-      }
-    </style>
-    </head>
-    <body>
-        <h1>Sponge Cake</h1>
-        <img src="images (14).jpg" width="100%" >
-        <p class="first"><strong id="head">Ingredients:</strong><br><ol><li>Eggs.</li><li>Sugar.</li><li>Flour.</li><li>Baking Powder.</li><li>Butter or Oil.</li><li>Milk.</li><li>Vanilla Extract.</li><li>Salt.</li></ol></p>
-        <h2>Allergens</h2>
-        <p class="first">Contains:<br><ul><li>wheat (gluten)</li><li>eggs</li><li>milk</li></ul></p>
-        <h4>price</h4>
-        <label for="quantity">Quantity</label>
-            <input type="number" id="quantity" name="quantity" min="1" value="1">
-            <p>Total:£<span id="total">20,000.00</span></p>
-        <a class="buttons" href="index.html"><button>Back to menu</button></a>
-        <a class="buttons" href="order.html"><button>Order Now</button></a>
-        
-        <button id="cart" onclick=addToCart()><img src="cart image.png" width="8%" height="10%"></button>
-            <h6 id="carttext">Add to cart</h6>
-            <script>
-                const quantityInput = document.getElementById("quantity");
-                const totalSpan = document.getElementById("total");
-                const price = 20000.00;
-                
-                quantityInput.addEventListener('input',function () {
-                  const quantity = Number(quantityInput.value);
-                  const amount = quantity * price;
-                  total.textContent = amount.toLocaleString() });
-                
-              
-                function addToCart() {
-                  const quantity = parseInt(quantityInput.value);
-                  const product = {
-                    name: "Sponge Cake",
-                    quantity: quantity,
-                    price: price,
-                    total: quantity * price
-                  };
-                let cart = JSON.parse(localStorage.getItem("cart")) || [];
-                const existingProduct = cart.find(item => item.name === product.name);
-                if (existingProduct) {
-                  existingProduct.quantity += quantity;
-                  existingProduct.total = existingProduct.quantity * existingProduct.price;
-                } else {
-                  cart.push(product);
-                }
-                localStorage.setItem("cart", JSON.stringify(cart));
-                alert(quantity+ " Sponge Cake(s) added to cart!");
-                }
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-              </script>
-            </body>
+  <title>Customized Sponge Cake</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #fff8f5;
+      color: #333;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .cake-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      text-align: center;
+      color: #7a3e2f;
+      margin-bottom: 8px;
+    }
+
+    .intro {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .section-title {
+      color: #7a3e2f;
+      font-size: 20px;
+      margin-top: 28px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ead8d1;
+      padding-bottom: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+      color: #4d3028;
+    }
+
+    select,
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d8c5be;
+      border-radius: 10px;
+      font-size: 15px;
+      background: #fff;
+      outline: none;
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus {
+      border-color: #a85d48;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .price-box {
+      background: #fff0e9;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .price-label {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .price {
+      font-size: 30px;
+      font-weight: bold;
+      color: #7a3e2f;
+    }
+
+    .summary {
+      background: #fafafa;
+      border: 1px solid #eadfd9;
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 20px;
+    }
+
+    .summary p {
+      margin: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .summary strong {
+      color: #7a3e2f;
+    }
+
+    .reference-box {
+      border: 2px dashed #d8b7ab;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+      background: #fffaf8;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 25px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .add-cart-btn {
+      background: #7a3e2f;
+      color: white;
+      flex: 1;
+    }
+
+    .cart-btn {
+      background: #ead2c8;
+      color: #5c3328;
+      flex: 1;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.92;
+    }
+
+    .cart-status {
+      margin-top: 18px;
+      padding: 13px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 14px;
+      background: #edf7ed;
+      color: #286328;
+    }
+
+    .cart-status.empty {
+      background: #f5f5f5;
+      color: #777;
+    }
+
+    .message {
+      display: none;
+      padding: 14px;
+      border-radius: 10px;
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .success {
+      display: block;
+      background: #e9f7e9;
+      color: #267326;
+    }
+
+    .error {
+      display: block;
+      background: #fdeaea;
+      color: #a32626;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      color: #7a3e2f;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 10px auto;
+        padding: 12px;
+      }
+
+      .cake-card {
+        padding: 18px;
+        border-radius: 15px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+
+      .section-title {
+        font-size: 18px;
+      }
+
+      select,
+      input[type="text"],
+      input[type="number"],
+      textarea {
+        font-size: 16px;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      .add-cart-btn,
+      .cart-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="cake-card">
+
+      <h1>Customize Your Sponge Cake</h1>
+
+      <p class="intro">
+        Create your perfect sponge cake by choosing your preferred size,
+        flavour, filling, icing and decoration.
+      </p>
+
+
+      <!-- CAKE SIZE -->
+      <h2 class="section-title">Cake Size</h2>
+
+      <div class="form-group">
+        <label for="cakeSize">Choose Cake Size</label>
+
+        <select id="cakeSize">
+          <option value="6 Inch" data-price="12000">6 Inch — ₦12,000</option>
+          <option value="8 Inch" data-price="18000">8 Inch — ₦18,000</option>
+          <option value="10 Inch" data-price="25000">10 Inch — ₦25,000</option>
+          <option value="12 Inch" data-price="33000">12 Inch — ₦33,000</option>
+        </select>
+      </div>
+
+
+      <!-- SHAPE -->
+      <div class="form-group">
+        <label for="cakeShape">Cake Shape</label>
+
+        <select id="cakeShape">
+          <option value="Round" data-price="0">Round — No Extra Charge</option>
+          <option value="Square" data-price="1500">Square — +₦1,500</option>
+          <option value="Heart" data-price="2500">Heart — +₦2,500</option>
+        </select>
+      </div>
+
+
+      <!-- FLAVOUR -->
+      <h2 class="section-title">Cake Flavour</h2>
+
+      <div class="form-group">
+        <label for="cakeFlavour">Choose Flavour</label>
+
+        <select id="cakeFlavour">
+          <option value="Vanilla" data-price="0">Vanilla — No Extra Charge</option>
+          <option value="Chocolate" data-price="2500">Chocolate — +₦2,500</option>
+          <option value="Red Velvet" data-price="3500">Red Velvet — +₦3,500</option>
+          <option value="Marble" data-price="3000">Marble — +₦3,000</option>
+          <option value="Carrot" data-price="3500">Carrot — +₦3,500</option>
+        </select>
+      </div>
+
+
+      <!-- LAYERS -->
+      <div class="form-group">
+        <label for="layers">Number of Layers</label>
+
+        <select id="layers">
+          <option value="1 Layer" data-price="0">1 Layer — No Extra Charge</option>
+          <option value="2 Layers" data-price="4000">2 Layers — +₦4,000</option>
+          <option value="3 Layers" data-price="8000">3 Layers — +₦8,000</option>
+        </select>
+      </div>
+
+
+      <!-- FILLING -->
+      <h2 class="section-title">Filling</h2>
+
+      <div class="form-group">
+        <label for="filling">Choose Filling</label>
+
+        <select id="filling">
+          <option value="No Filling" data-price="0">
+            No Filling — No Extra Charge
+          </option>
+
+          <option value="Vanilla Cream" data-price="2000">
+            Vanilla Cream — +₦2,000
+          </option>
+
+          <option value="Chocolate Ganache" data-price="3500">
+            Chocolate Ganache — +₦3,500
+          </option>
+
+          <option value="Caramel" data-price="3000">
+            Caramel — +₦3,000
+          </option>
+
+          <option value="Strawberry" data-price="3000">
+            Strawberry — +₦3,000
+          </option>
+
+          <option value="Oreo" data-price="4000">
+            Oreo — +₦4,000
+          </option>
+        </select>
+      </div>
+
+
+      <!-- ICING -->
+      <h2 class="section-title">Icing & Decoration</h2>
+
+      <div class="form-group">
+        <label for="icing">Icing Type</label>
+
+        <select id="icing">
+          <option value="Buttercream" data-price="0">
+            Buttercream — No Extra Charge
+          </option>
+
+          <option value="Whipped Cream" data-price="3500">
+            Whipped Cream — +₦3,500
+          </option>
+
+          <option value="Fondant" data-price="6000">
+            Fondant — +₦6,000
+          </option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="icingColour">Icing Colour</label>
+
+        <input
+          type="text"
+          id="icingColour"
+          placeholder="e.g. Pink and white"
+        >
+      </div>
+
+
+      <div class="form-group">
+        <label for="decoration">Decoration Style</label>
+
+        <select id="decoration">
+          <option value="Simple" data-price="0">
+            Simple — No Extra Charge
+          </option>
+
+          <option value="Elegant" data-price="4000">
+            Elegant — +₦4,000
+          </option>
+
+          <option value="Floral" data-price="6000">
+            Floral — +₦6,000
+          </option>
+
+          <option value="Luxury" data-price="10000">
+            Luxury — +₦10,000
+          </option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="decorationExtras">
+          Decoration Details
+        </label>
+
+        <textarea
+          id="decorationExtras"
+          placeholder="Tell us about any specific decoration you would like."
+        ></textarea>
+      </div>
+
+
+      <!-- TOPPER -->
+      <div class="form-group">
+        <label for="cakeTopper">Cake Topper</label>
+
+        <select id="cakeTopper">
+          <option value="None" data-price="0">
+            None — No Extra Charge
+          </option>
+
+          <option value="Simple Topper" data-price="1500">
+            Simple Topper — +₦1,500
+          </option>
+
+          <option value="Custom Name Topper" data-price="3000">
+            Custom Name Topper — +₦3,000
+          </option>
+        </select>
+      </div>
+
+
+      <!-- PURPOSE -->
+      <h2 class="section-title">Cake Details</h2>
+
+      <div class="form-group">
+        <label for="cakePurpose">
+          Purpose / Occasion
+        </label>
+
+        <input
+          type="text"
+          id="cakePurpose"
+          placeholder="e.g. Birthday, Wedding, Graduation"
+        >
+      </div>
+
+
+      <div class="form-group">
+        <label for="cakeMessage">
+          Cake Message
+        </label>
+
+        <textarea
+          id="cakeMessage"
+          placeholder="What would you like written on the cake?"
+        ></textarea>
+      </div>
+
+
+      <div class="form-group">
+        <label for="specialInstructions">
+          Special Instructions
+        </label>
+
+        <textarea
+          id="specialInstructions"
+          placeholder="Any other special instructions for your cake?"
+        ></textarea>
+      </div>
+
+
+      <!-- QUANTITY -->
+      <h2 class="section-title">Quantity</h2>
+
+      <div class="form-group">
+        <label for="quantity">
+          Number of Cakes
+        </label>
+
+        <input
+          type="number"
+          id="quantity"
+          min="1"
+          value="1"
+        >
+      </div>
+
+
+      <!-- REFERENCE IMAGE -->
+      <h2 class="section-title">Reference Image</h2>
+
+      <div class="reference-box">
+
+        <p>
+          If you have a picture showing the style you want,
+          you can upload it here.
+        </p>
+
+        <input
+          type="file"
+          id="referenceImage"
+          accept="image/*"
+        >
+
+      </div>
+
+
+      <!-- PRICE -->
+      <div class="price-box">
+
+        <div class="price-label">
+          Price Per Cake
+        </div>
+
+        <div class="price" id="pricePerCake">
+          ₦12,000
+        </div>
+
+        <div class="price-label" style="margin-top: 10px;">
+          Total
+        </div>
+
+        <div class="price" id="grandTotal">
+          ₦12,000
+        </div>
+
+      </div>
+
+
+      <!-- SUMMARY -->
+      <div class="summary">
+
+        <p>
+          <span>Base Cake:</span>
+          <strong id="summaryBase">₦12,000</strong>
+        </p>
+
+        <p>
+          <span>Customizations:</span>
+          <strong id="summaryCustom">₦0</strong>
+        </p>
+
+        <p>
+          <span>Quantity:</span>
+          <strong id="summaryQuantity">1</strong>
+        </p>
+
+        <p>
+          <span>Total:</span>
+          <strong id="summaryTotal">₦12,000</strong>
+        </p>
+
+      </div>
+
+
+      <!-- BUTTONS -->
+      <div class="button-row">
+
+        <button
+          type="button"
+          class="add-cart-btn"
+          id="addToCartBtn"
+        >
+          🛒 Add Sponge Cake to Cart
+        </button>
+
+        <button
+          type="button"
+          class="cart-btn"
+          onclick="goToCart()"
+        >
+          View Cart / Checkout
+        </button>
+
+      </div>
+
+
+      <!-- CART STATUS -->
+      <div
+        id="cartStatus"
+        class="cart-status empty"
+      >
+        🛒 Your cart is currently empty.
+      </div>
+
+
+      <!-- MESSAGE -->
+      <div id="message" class="message"></div>
+
+
+      <a
+        href="index.html"
+        class="back-link"
+      >
+        ← Back to Menu
+      </a>
+
+    </div>
+
+  </div>
+
+
+<script>
+
+  /* ================================
+     HELPER FUNCTIONS
+  ================================= */
+
+  function getValue(id) {
+    const element = document.getElementById(id);
+    return element ? element.value : "";
+  }
+
+
+  function getSelectedPrice(id) {
+
+    const select = document.getElementById(id);
+
+    if (!select) {
+      return 0;
+    }
+
+    const option = select.options[select.selectedIndex];
+
+    return Number(option.dataset.price || 0);
+  }
+
+
+  function formatNaira(amount) {
+
+    return "₦" + Number(amount).toLocaleString("en-NG");
+  }
+
+
+  /* ================================
+     CALCULATE PRICE
+  ================================= */
+
+  function calculateSpongeCakePrice() {
+
+    const basePrice = getSelectedPrice("cakeSize");
+
+    const shapePrice = getSelectedPrice("cakeShape");
+
+    const flavourPrice = getSelectedPrice("cakeFlavour");
+
+    const layerPrice = getSelectedPrice("layers");
+
+    const fillingPrice = getSelectedPrice("filling");
+
+    const icingPrice = getSelectedPrice("icing");
+
+    const decorationPrice = getSelectedPrice("decoration");
+
+    const topperPrice = getSelectedPrice("cakeTopper");
+
+
+    const customizationPrice =
+      shapePrice +
+      flavourPrice +
+      layerPrice +
+      fillingPrice +
+      icingPrice +
+      decorationPrice +
+      topperPrice;
+
+
+    const pricePerCake =
+      basePrice + customizationPrice;
+
+
+    let quantity =
+      parseInt(document.getElementById("quantity").value) || 1;
+
+
+    if (quantity < 1) {
+      quantity = 1;
+      document.getElementById("quantity").value = 1;
+    }
+
+
+    const total =
+      pricePerCake * quantity;
+
+
+    /* DISPLAY PRICE */
+
+    document.getElementById("pricePerCake").textContent =
+      formatNaira(pricePerCake);
+
+
+    document.getElementById("grandTotal").textContent =
+      formatNaira(total);
+
+
+    /* DISPLAY SUMMARY */
+
+    document.getElementById("summaryBase").textContent =
+      formatNaira(basePrice);
+
+
+    document.getElementById("summaryCustom").textContent =
+      formatNaira(customizationPrice);
+
+
+    document.getElementById("summaryQuantity").textContent =
+      quantity;
+
+
+    document.getElementById("summaryTotal").textContent =
+      formatNaira(total);
+
+
+    return {
+      basePrice,
+      customizationPrice,
+      pricePerCake,
+      quantity,
+      total
+    };
+  }
+
+
+  /* ================================
+     REFERENCE IMAGE
+  ================================= */
+
+  function readReferenceImage() {
+
+    return new Promise((resolve, reject) => {
+
+      const fileInput =
+        document.getElementById("referenceImage");
+
+      if (
+        !fileInput ||
+        !fileInput.files ||
+        !fileInput.files[0]
+      ) {
+        resolve(null);
+        return;
+      }
+
+
+      const file = fileInput.files[0];
+
+      const reader = new FileReader();
+
+
+      reader.onload = function(event) {
+
+        resolve({
+          fileName: file.name,
+          mimeType: file.type,
+          base64: event.target.result
+        });
+
+      };
+
+
+      reader.onerror = function() {
+
+        reject(
+          new Error("Could not read the reference image.")
+        );
+
+      };
+
+
+      reader.readAsDataURL(file);
+
+    });
+
+  }
+
+
+  /* ================================
+     ADD TO CART
+  ================================= */
+
+  async function addToCart() {
+
+    const prices =
+      calculateSpongeCakePrice();
+
+
+    const addButton =
+      document.getElementById("addToCartBtn");
+
+
+    addButton.disabled = true;
+
+    addButton.textContent =
+      "Adding to Cart...";
+
+
+    try {
+
+      const referenceImage =
+        await readReferenceImage();
+
+
+      /*
+       IMPORTANT:
+
+       Every sponge cake gets its own unique ID.
+
+       This means different customizations
+       are NEVER merged together.
+      */
+
+      const cartItemId =
+        "sponge-" +
+        Date.now() +
+        "-" +
+        Math.random()
+          .toString(36)
+          .substring(2, 9);
+
+
+      const product = {
+
+        /* BASIC CART INFORMATION */
+
+        cartItemId: cartItemId,
+
+        name: "Customized Sponge Cake",
+
+        productType: "Sponge Cake",
+
+        quantity: prices.quantity,
+
+        price: prices.pricePerCake,
+
+        total: prices.total,
+
+
+        /* HIDDEN CUSTOMIZATION INFORMATION */
+
+        cakeSize:
+          getValue("cakeSize"),
+
+        cakeShape:
+          getValue("cakeShape"),
+
+        cakeFlavour:
+          getValue("cakeFlavour"),
+
+        layers:
+          getValue("layers"),
+
+        filling:
+          getValue("filling"),
+
+        icing:
+          getValue("icing"),
+
+        icingColour:
+          getValue("icingColour"),
+
+        decoration:
+          getValue("decoration"),
+
+        decorationExtras:
+          getValue("decorationExtras"),
+
+        cakeTopper:
+          getValue("cakeTopper"),
+
+        cakePurpose:
+          getValue("cakePurpose"),
+
+        cakeMessage:
+          getValue("cakeMessage"),
+
+        specialInstructions:
+          getValue("specialInstructions"),
+
+
+        /* PRICE BREAKDOWN */
+
+        basePrice:
+          prices.basePrice,
+
+        customizationPrice:
+          prices.customizationPrice,
+
+        pricePerCake:
+          prices.pricePerCake,
+
+
+        /* REFERENCE IMAGE */
+
+        referenceImage:
+          referenceImage,
+
+
+        /* TIMESTAMP */
+
+        createdAt:
+          new Date().toISOString()
+
+      };
+
+
+      /* GET CURRENT CART */
+
+      let cart = [];
+
+      try {
+
+        cart =
+          JSON.parse(
+            localStorage.getItem("cart")
+          ) || [];
+
+      } catch (error) {
+
+        cart = [];
+
+      }
+
+
+      /*
+       IMPORTANT:
+
+       We use PUSH.
+
+       We DO NOT search for another
+       Sponge Cake and increase its quantity.
+
+       Therefore every customization
+       becomes its own separate cart row.
+      */
+
+      cart.push(product);
+
+
+      /* SAVE CART */
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+      );
+
+
+      /* UPDATE STATUS */
+
+      updateCartStatus();
+
+
+      /* SUCCESS MESSAGE */
+
+      showMessage(
+        "Sponge cake added to your cart successfully!",
+        "success"
+      );
+
+
+      addButton.textContent =
+        "✓ Added to Cart";
+
+
+      setTimeout(() => {
+
+        addButton.textContent =
+          "🛒 Add Sponge Cake to Cart";
+
+        addButton.disabled = false;
+
+      }, 1500);
+
+
+    } catch (error) {
+
+      console.error(error);
+
+
+      showMessage(
+        "There was a problem adding the sponge cake to your cart.",
+        "error"
+      );
+
+
+      addButton.textContent =
+        "🛒 Add Sponge Cake to Cart";
+
+      addButton.disabled = false;
+
+    }
+
+  }
+
+
+  /* ================================
+     CART STATUS
+  ================================= */
+
+  function updateCartStatus() {
+
+    let cart = [];
+
+    try {
+
+      cart =
+        JSON.parse(
+          localStorage.getItem("cart")
+        ) || [];
+
+    } catch (error) {
+
+      cart = [];
+
+    }
+
+
+    const cartStatus =
+      document.getElementById("cartStatus");
+
+
+    if (cart.length === 0) {
+
+      cartStatus.textContent =
+        "🛒 Your cart is currently empty.";
+
+      cartStatus.className =
+        "cart-status empty";
+
+      return;
+
+    }
+
+
+    const totalQuantity =
+      cart.reduce(
+        (total, item) =>
+          total +
+          Number(item.quantity || 0),
+        0
+      );
+
+
+    const numberOfItems =
+      cart.length;
+
+
+    const itemWord =
+      numberOfItems === 1
+        ? "item"
+        : "items";
+
+
+    const cakeWord =
+      totalQuantity === 1
+        ? "cake"
+        : "cakes";
+
+
+    cartStatus.textContent =
+      "🛒 Your cart has " +
+      numberOfItems +
+      " " +
+      itemWord +".";
+
+
+    cartStatus.className =
+      "cart-status";
+
+  }
+
+
+  /* ================================
+     MESSAGE
+  ================================= */
+
+  function showMessage(text, type) {
+
+    const message =
+      document.getElementById("message");
+
+
+    message.textContent =
+      text;
+
+
+    message.className =
+      "message " + type;
+
+
+    setTimeout(() => {
+
+      message.className =
+        "message";
+
+    }, 4000);
+
+  }
+
+
+  /* ================================
+     GO TO CART
+  ================================= */
+
+  function goToCart() {
+
+    window.location.href =
+      "order.html";
+
+  }
+
+
+  /* ================================
+     LIVE PRICE UPDATES
+  ================================= */
+
+  const fields = [
+
+    "cakeSize",
+
+    "cakeShape",
+
+    "cakeFlavour",
+
+    "layers",
+
+    "filling",
+
+    "icing",
+
+    "decoration",
+
+    "cakeTopper",
+
+    "quantity"
+
+  ];
+
+
+  fields.forEach(id => {
+
+    const element =
+      document.getElementById(id);
+
+
+    if (element) {
+
+      element.addEventListener(
+        "change",
+        calculateSpongeCakePrice
+      );
+
+      element.addEventListener(
+        "input",
+        calculateSpongeCakePrice
+      );
+
+    }
+
+  });
+
+
+  /* ================================
+     BUTTON
+  ================================= */
+
+  document
+    .getElementById("addToCartBtn")
+    .addEventListener(
+      "click",
+      addToCart
+    );
+
+
+  /* ================================
+     INITIALISE PAGE
+  ================================= */
+
+  calculateSpongeCakePrice();
+
+  updateCartStatus();
+
+</script>
+
+</body>
 </html>

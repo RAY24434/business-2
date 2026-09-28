@@ -1,395 +1,2168 @@
 <!DOCTYPE html>
-<html >
-  <head>
-    <title>Checkout </title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 100px;
-        background-color: lightblue;
-        
-        
-        #city, #customerEmail, #customerPhone, #payment, #amount, #reference,#customerAddress ,#customerName{
-          width: 100%;
-          height:100%;
-          padding: 10px;
-          margin: 5px 0;
-          box-sizing: border-box;
-          background: white;
-          color:black;
-          border:none;
-          padding:12px 24px;
-          border-radius:50px;
-          font-size:16px;
-          font-weight:600;
-          cursor:pointer;
-          transition:all 0.3s ease;
-        }
-        #submit:hover{
-                      transform:translateY(-2px);
-                      box-shadow:0 6px 15px rgba(0.2);
-        }
-          
-        }
-        #placeOrderButton {
-          background-color: rebeccapurple;
-          color: white;
-          padding: 10px 20px;
-          border: solid rebeccapurple;
-          cursor: pointer;
-          margin-left: 150px;
-          margin-top: 20px;
-        }
-        #back {
-          background-color: rebeccapurple;
-          color: white;
-          padding: 10px 20px;
-          border: solid rebeccapurple;
-          cursor: pointer;
-          margin-left: 150px;
-          margin-top: 20px;
-           line-height: 1.6;
-           
-        }
-        #link {
-          
-          text-decoration: none;
-          margin-left: 50px;
-          margin-top: 20px;
-          display: inline-block;
-        }
-         #placeOrderButton{
-                 background: #2563eb;
-                 color:white;
-                 border:none;
-                 padding:12px 24px;
-                 border-radius:50px;
-                 font-size:16px;
-                 font-weight:600;
-                 cursor:pointer;
-                 transition:all 0.3s ease;
-        }
-        #placeOrderButton:hover{
-                      transform:translateY(-2px);
-                      box-shadow:0 6px 15px rgba(0.2);
-        }
-        #back{
-                 background: #2563eb;
-                 color:white;
-                 border:none;
-                 padding:12px 24px;
-                 border-radius:50px;
-                 font-size:16px;
-                 font-weight:600;
-                 cursor:pointer;
-                 transition:all 0.3s ease;
-        }
-        #back:hover{
-                      transform:translateY(-2px);
-                      box-shadow:0 6px 15px rgba(0.2);
-        }
-        .quantity-control{
-         display:inline-flex;
-          align-items:center;
-          gap:15px;
-          padding:6px 10px;
-          
-          border-radius:50px;
-        }
-        .quantity-btn{
-          width:15px;
-          height:15px;
-          border:none;
-          border-radius:50%;
-          background-color:rgb(5, 162, 26) ;
-          color:white;
-          font-size:10px;
-          font-weight:bold;
-          cursor:pointer;
-          display:inline-flex;
-          align-items:center;
-          justify-content:center;
-          transition:0.2s ease;
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        }
-        .quantity-btn:hover{
-          transform:scale(1.1);
-          box-shadow:0 4px 10px rgba(0,0,0,0.2);
+<title>Checkout</title>
 
-        }
-        .quantity-btn:active{
-          transform:scale(0.95);
-        }
-       
-         #remove{
-                 background-color: aquamarine;
-                 color:white;
-                 border:none;
-                 padding:0px;
-                 border-radius:0px;
-                 font-size:0px;
-                 font-weight:0;
-                 cursor:pointer;
-                 transition:all 0.3s ease;
-        }
-        #remove:hover{
-                      transform:translateY(-2px);
-                      box-shadow:0 6px 15px rgba(0.2);
-        }
-        #form{
-          
-          padding: 3%;
-          border-radius: 10%;
-          background-color: aquamarine;
-          padding: 3%;
-        }
-        #table{
-          background-color: aquamarine;
-          padding: 3%;
-        }
-        #details{
-          background-color: aquamarine;
-          border-radius: 20%;
-          padding: 3%;
+<style>
 
-        }
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    background-color: lightblue;
+    color: #111;
+}
+
+h1, h2, h3 {
+    color: #222;
+}
+
+#details {
+    background-color: aquamarine;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+#table {
+    background-color: aquamarine;
+    padding: 15px;
+    border-radius: 15px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+th,
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: rgba(255,255,255,0.5);
+}
+
+#grandTotal {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.quantity-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.quantity-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgb(5, 162, 26);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+}
+
+.quantity-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.quantity-btn:active {
+    transform: scale(0.95);
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.remove-btn img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
+#form {
+    padding: 20px;
+    border-radius: 20px;
+    background-color: aquamarine;
+    margin-top: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: white;
+    color: black;
+    font-size: 16px;
+    outline: none;
+}
+
+.form-input:focus {
+    box-shadow: 0 0 0 2px #2563eb;
+}
+
+textarea.form-input {
+    min-height: 90px;
+    resize: vertical;
+}
 
 
-      
-    </style>
-      </head>
-      <body>
-        <h1>Checkout details</h1>
-        <p>please make payment using the details below.</p><br>
-        <div id="details">
-        ACCOUNT NAME: Northstar Market<br>
-        ACCOUNT NUMBER: 1234567890<br>
-        BANK: GTB<br>
-        email address:fdtgfhgiyeddthjjgs@gmail.com
-        </div>
-        <h2 id="carthead">CART</h2>
-        <div id="table">
-        <table id="orderTable">
-          <thead>
+/* ==============================
+   ORDER BUTTON
+   ============================== */
+
+#placeOrderButton,
+#payNowButton {
+    display: block;
+    width: min(100%, 350px);
+    margin: 15px auto;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#placeOrderButton {
+    background: #2563eb;
+}
+
+#placeOrderButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+
+/* ==============================
+   PAYSTACK BUTTON
+   ============================== */
+
+#payNowButton {
+    background: #00a86b;
+}
+
+#payNowButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+#payNowButton:disabled,
+#placeOrderButton:disabled {
+    background: #888;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+#paystackStatus {
+    text-align: center;
+    font-size: 14px;
+    margin: 8px auto 20px auto;
+    max-width: 500px;
+    line-height: 1.5;
+}
+
+#back {
+    display: block;
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 20px auto;
+}
+
+#back:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+#link {
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    color: #0000ee;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.order-note {
+    text-align: center;
+    line-height: 1.6;
+}
+
+
+/* ==============================
+   PAYSTACK INFORMATION BOX
+   ============================== */
+
+#paymentBox {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 500px;
+    text-align: center;
+}
+
+#paymentBox h3 {
+    margin-top: 0;
+}
+
+#paymentBox p {
+    line-height: 1.5;
+}
+
+
+@media (max-width: 600px) {
+
+    body {
+        margin: 6px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    h2 {
+        font-size: 21px;
+    }
+
+    th,
+    td {
+        padding: 7px;
+        font-size: 14px;
+    }
+
+    #table {
+        padding: 8px;
+    }
+
+    #form {
+        padding: 15px;
+    }
+
+    .quantity-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<h1>Checkout Details</h1>
+
+<p>
+Please review your order and enter your details below.
+</p>
+
+
+<!-- ==============================
+     BANK DETAILS
+     ============================== -->
+
+<div id="details">
+
+    <strong>PAYMENT DETAILS</strong><br><br>
+
+    ACCOUNT NAME: Northstar Market<br>
+    ACCOUNT NUMBER: 1234567890<br>
+    BANK: GTB<br>
+    EMAIL ADDRESS: fdtgfhgiyeddthjjgs@gmail.com
+
+</div>
+
+
+<!-- ==============================
+     CART
+     ============================== -->
+
+<h2 id="carthead">CART</h2>
+
+<div id="table">
+
+<table id="orderTable">
+
+<thead>
+
+<tr>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Unit Price</th>
+    <th>Total</th>
+    <th>Remove</th>
+</tr>
+
+</thead>
+
+<tbody id="orderItems"></tbody>
+
+<tfoot>
+
+<tr>
+
+    <th colspan="3">
+        Grand Total:
+    </th>
+
+    <th colspan="2" id="grandTotal">
+        ₦0.00
+    </th>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+</div>
+
+
+<!-- ==============================
+     CUSTOMER INFORMATION
+     ============================== -->
+
+<h3>Personal Details</h3>
+
+<div id="form">
+
+<form id="checkoutForm">
+
+    <div class="form-group">
+
+        <label for="customerName">
+            Full Name:
+        </label>
+
+        <input
+            type="text"
+            id="customerName"
+            class="form-input"
+            placeholder="Enter your full name"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="customerAddress">
+            Delivery Address:
+        </label>
+
+        <textarea
+            id="customerAddress"
+            class="form-input"
+            placeholder="Enter your delivery address"
+            required
+        ></textarea>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="customerEmail">
+            Email Address:
+        </label>
+
+        <input
+            type="email"
+            id="customerEmail"
+            class="form-input"
+            placeholder="Enter your email address"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="customerPhone">
+            Phone Number:
+        </label>
+
+        <input
+            type="tel"
+            id="customerPhone"
+            class="form-input"
+            placeholder="Enter your phone number"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="whatsapp">
+            WhatsApp Number:
+        </label>
+
+        <input
+            type="tel"
+            id="whatsapp"
+            class="form-input"
+            placeholder="WhatsApp number"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="deliveryMethod">
+            Delivery Method:
+        </label>
+
+        <select
+            id="deliveryMethod"
+            class="form-input"
+        >
+
+            <option value="Delivery">
+                Delivery
+            </option>
+
+            <option value="Pickup">
+                Pickup
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="dateNeeded">
+            Date Needed:
+        </label>
+
+        <input
+            type="date"
+            id="dateNeeded"
+            class="form-input"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="dietaryRequirements">
+            Dietary Requirements:
+        </label>
+
+        <input
+            type="text"
+            id="dietaryRequirements"
+            class="form-input"
+            placeholder="Optional"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="allergies">
+            Allergies:
+        </label>
+
+        <input
+            type="text"
+            id="allergies"
+            class="form-input"
+            placeholder="Optional"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="orderSpecialInstructions">
+            General Order Instructions:
+        </label>
+
+        <textarea
+            id="orderSpecialInstructions"
+            class="form-input"
+            placeholder="Any additional instructions for the whole order"
+        ></textarea>
+
+    </div>
+
+</form>
+
+</div>
+
+
+<!-- ==============================
+     PAYMENT AREA
+     ============================== -->
+
+<div id="paymentBox">
+
+    <h3>Payment</h3>
+
+    <p>
+        You can submit your order now or use Paystack
+        when online payment has been activated.
+    </p>
+
+
+    <!--
+        PAYSTACK BUTTON
+
+        This button is already connected to the
+        Paystack JavaScript function below.
+
+        Paystack is currently disabled.
+    -->
+
+    <button
+        id="payNowButton"
+        type="button"
+    >
+        PAY NOW WITH PAYSTACK
+    </button>
+
+
+    <div id="paystackStatus">
+
+        Paystack payment is currently unavailable.
+        Online payment will be activated soon.
+
+    </div>
+
+</div>
+
+
+<!-- ==============================
+     PLACE ORDER
+     ============================== -->
+
+<button
+    id="placeOrderButton"
+    type="button"
+>
+    PLACE ORDER
+</button>
+
+
+<p class="order-note">
+
+After making payment by bank transfer, please send a
+screenshot of your payment to our email address.
+
+</p>
+
+
+<a href="index.html">
+
+    <button
+        id="back"
+        type="button"
+    >
+        Back to Menu
+    </button>
+
+</a>
+
+
+<a
+    href="https://wa.me/09029910208"
+    target="_blank"
+    id="link"
+>
+    For more enquiries or specifications tap here
+</a>
+
+
+<!--
+===========================================================
+PAYSTACK SCRIPT
+===========================================================
+
+The Paystack library is included now so that the structure
+is ready for future activation.
+
+It will NOT automatically open a payment window while
+USE_PAYSTACK is false.
+===========================================================
+-->
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+
+<script>
+
+/* =========================================================
+   CENTRAL GOOGLE APPS SCRIPT
+   ========================================================= */
+
+const GOOGLE_SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbxhIC8kyHNxwmEw-OIvJMrzEMpVIrtLkaBwFqlV5La0spu3-HUunki8Asz_MOUOONfu/exec";
+
+
+/* =========================================================
+   PAYSTACK SETTINGS
+   =========================================================
+
+   KEEP THIS FALSE FOR NOW.
+
+   When you eventually register Paystack and get your
+   PUBLIC KEY, change:
+
+       USE_PAYSTACK = false
+
+   to:
+
+       USE_PAYSTACK = true
+
+   Then replace:
+
+       YOUR_PAYSTACK_PUBLIC_KEY_HERE
+
+   with your Paystack PUBLIC KEY.
+
+   NEVER put your Paystack SECRET KEY here.
+   ========================================================= */
+
+const USE_PAYSTACK = false;
+
+const PAYSTACK_PUBLIC_KEY =
+"YOUR_PAYSTACK_PUBLIC_KEY_HERE";
+
+
+/* =========================================================
+   GET CART
+   ========================================================= */
+
+function getCart() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem("cart")
+        ) || [];
+
+    } catch (error) {
+
+        console.error(
+            "Could not read cart:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE CART
+   ========================================================= */
+
+function saveCart(cart) {
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   DISPLAY CART
+   ========================================================= */
+
+function displayCheckout() {
+
+    const cart = getCart();
+
+    const orderItems =
+        document.getElementById(
+            "orderItems"
+        );
+
+    const grandTotal =
+        document.getElementById(
+            "grandTotal"
+        );
+
+    orderItems.innerHTML = "";
+
+
+    if (cart.length === 0) {
+
+        orderItems.innerHTML = `
             <tr>
-              <th>product</th>
-              <th>Quantity</th>
-              <th> unit Price</th>
-              <th>Total</th>
-              <th></th>
+                <td
+                    colspan="5"
+                    class="empty-cart"
+                >
+                    Your cart is empty.
+                </td>
             </tr>
-          </thead>
-          <tbody id="orderItems"></tbody>
-            <tfoot>
-              <tr>
-                <th colspan="3"><strong>Grand Total:</strong></th>
-                <th id="grandTotal">£0.00</th>
-              </tr>
-            </tfoot>
-          
-        </table></div>
-        <h3>personal details</h3>
-        <div id="form">
-        <form
-        actions=" https://formspree.io/f/mrpgnvdj" method="POST">
-        <label for="name">Name:</label><br>
-        <input type="text" id="customerName" placeholder=" Name" required><br>
-        <label for="address">Address:</label><br>
-        <input type="text" id="customerAddress" placeholder="Address" required><br>
-        <label for="email">Email Address:</label><br>
-        <input type="email" id="customerEmail" placeholder="Email Address" required><br>
-        <label for="phone">Phone Number:</label><br>
-        <input type="tel" id="customerPhone" placeholder="Phone Number" required><br>
-        <!--label for="payment"!--><!--/label!--><br>
-        <!--select id="payment" name="payment"!-->
-          <!--option value="creditcard"!--><!--/option!-->
-          <!--option value="paypal">PayPal<--/option!-->
-          <!--option value="banktransfer"!--><!--/option!-->
-        </select><br>
-        </form>
-        </div>
-        
-        
-        <button id="placeOrderButton" type="submit">Place your order</button>
-        
-        <p>After making payment, please send a screenshot of your payment to our email address</p>
-        <a href="index.html"><button id="back">Back to menu</button></a><br>
-        <a href="https://wa.me/09029910208" target="_blank" id="link">For more enquiries or specifications tap here</a>
-        
-        <script>
-          function displayCheckout(){
-          const cart=JSON.parse(localStorage.getItem("cart")) ||
-        [];
-        const orderItems = document.getElementById('orderItems');
-        const grandTotal = document.getElementById('grandTotal');
-        
-      
-          let total=0;
-          cart.forEach((item ,index)=>{
-          const row = document.createElement("tr");
-          //make sure quantity has a value
-          const quantity = Number(item.quantity) || 1;
-          const itemTotal=Number(item.price)*quantity;
-          row.innerHTML = `
-            <td>${item.name}</td>
-      
-           <td><button class="quantity-btn" onclick="decreaseQuantity(${index})"
-                                             style="padding:5px 10px;">
-                                             -
-                                             </button> 
-                                             <span   style="margin:0 10px;">
-                                              ${quantity}</span>
-            <button class="quantity-btn" onclick="increaseQuantity(${index})"
-                                             style="padding:5px 10px;">
-                                             +
-                                             </button> </td>                                 
-            <td>£${Number(item.price).toLocaleString("en-NG")}</td>
-            <td>£${Number(item.total).toLocaleString("en-NG")}</td>
+        `;
+
+        grandTotal.textContent =
+            "₦0.00";
+
+        return;
+
+    }
+
+
+    let total = 0;
+
+
+    cart.forEach(function(item, index) {
+
+        const quantity =
+            Number(item.quantity) || 1;
+
+        const price =
+            Number(item.price) || 0;
+
+        const itemTotal =
+            price * quantity;
+
+
+        item.quantity =
+            quantity;
+
+        item.price =
+            price;
+
+        item.total =
+            itemTotal;
+
+
+        total += itemTotal;
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
             <td>
-              <button id="remove"
-              onclick="removeFromCart(${index})"><img src="delete icon.webp" width="10%"></botton></td>
-          `;
-          orderItems.appendChild(row);
-          total+=Number(item.total);
-        });
-        grandTotal.textContent = "₦" + total.toLocaleString("en-NG",{ minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        
-        }
-        function increaseQuantity(index){
-          let cart=JSON.parse(localStorage.getItem("cart"))|| [];
-        cart[index].quantity = (Number(cart[index].quantity)|| 1) + 1;
-          cart[index].total=Number(cart[index].price)*cart[index].quantity;
-          localStorage.setItem("cart",JSON.stringify(cart));
-          location.reload();
-          displayCheckout();
-        }
-        function decreaseQuantity(index){
-          let cart=JSON.parse(localStorage.getItem("cart"))|| [];
-        let quantity = Number(cart[index].quantity)|| 1;
-        if (quantity>1)
-        {cart[index].quantity = quantity-1;
-          cart[index].total=Number(cart[index].price)*cart[index].quantity;
-           localStorage.setItem("cart",JSON.stringify(cart));
-           location.reload();
+                ${escapeHtml(
+                    item.name ||
+                    item.productName ||
+                    "Product"
+                )}
+            </td>
+
+
+            <td>
+
+                <div class="quantity-control">
+
+                    <button
+                        class="quantity-btn"
+                        type="button"
+                        onclick="decreaseQuantity(${index})"
+                    >
+                        −
+                    </button>
+
+
+                    <span>
+                        ${quantity}
+                    </span>
+
+
+                    <button
+                        class="quantity-btn"
+                        type="button"
+                        onclick="increaseQuantity(${index})"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </td>
+
+
+            <td>
+                ₦${price.toLocaleString("en-NG")}
+            </td>
+
+
+            <td>
+                ₦${itemTotal.toLocaleString(
+                    "en-NG",
+                    {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }
+                )}
+            </td>
+
+
+            <td>
+
+                <button
+                    class="remove-btn"
+                    type="button"
+                    onclick="removeFromCart(${index})"
+                >
+
+                    <img
+                        src="delete icon.webp"
+                        alt="Remove"
+                    >
+
+                </button>
+
+            </td>
+
+        `;
+
+
+        orderItems.appendChild(row);
+
+    });
+
+
+    saveCart(cart);
+
+
+    grandTotal.textContent =
+        "₦" +
+        total.toLocaleString(
+            "en-NG",
+            {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }
+        );
+
+}
+
+
+/* =========================================================
+   INCREASE QUANTITY
+   ========================================================= */
+
+function increaseQuantity(index) {
+
+    const cart = getCart();
+
+    if (!cart[index]) {
+        return;
+    }
+
+
+    cart[index].quantity =
+        (Number(cart[index].quantity) || 1) + 1;
+
+
+    cart[index].total =
+        Number(cart[index].price || 0) *
+        cart[index].quantity;
+
+
+    saveCart(cart);
+
+    displayCheckout();
+
+}
+
+
+/* =========================================================
+   DECREASE QUANTITY
+   ========================================================= */
+
+function decreaseQuantity(index) {
+
+    const cart = getCart();
+
+    if (!cart[index]) {
+        return;
+    }
+
+
+    const quantity =
+        Number(cart[index].quantity) || 1;
+
+
+    if (quantity > 1) {
+
+        cart[index].quantity =
+            quantity - 1;
+
+
+        cart[index].total =
+            Number(cart[index].price || 0) *
+            cart[index].quantity;
+
+
+        saveCart(cart);
+
         displayCheckout();
 
-        }else{
-          removeFromCart(index);
-        }
-      }
-        function removeFromCart(index){
-          let cart =
-          JSON.parse(localStorage.getItem("cart")) || [];
-        //remove only the selected item
-          cart.splice(index, 1);
-          //save the new cart
-          localStorage.setItem("cart",JSON.stringify(cart));
-          //refresh the checkout page
-          location.reload();
-          
-          displayCheckout();
-          }
-          displayCheckout();
-          const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPWS3H3_MdqOFlQTnk21riNeSmYzIViquLJVRMWtP_xggX1Tlat7p1OfEVL83_Kr_U/exec";
+    } else {
 
-document.getElementById("placeOrderButton").addEventListener("click", function () {
+        removeFromCart(index);
 
-    // Get the latest cart directly from localStorage
-    const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
+    }
 
-    console.log("Current cart:", currentCart);
+}
 
-    // Check whether the cart is empty
-    if (currentCart.length === 0) {
-        alert("Your cart is empty.");
+
+/* =========================================================
+   REMOVE ITEM
+   ========================================================= */
+
+function removeFromCart(index) {
+
+    const cart = getCart();
+
+    if (!cart[index]) {
         return;
     }
 
-    // Get customer information
-    const name = document.getElementById("customerName").value.trim();
-    const phone = document.getElementById("customerPhone").value.trim();
-    const email = document.getElementById("customerEmail").value.trim();
-    const address = document.getElementById("customerAddress").value.trim();
 
-    // Check customer information
-    if (!name || !phone || !email || !address) {
-        alert("Please fill in all your information.");
+    const productName =
+        cart[index].name ||
+        cart[index].productName ||
+        "this item";
+
+
+    if (
+        !confirm(
+            "Remove " +
+            productName +
+            " from your cart?"
+        )
+    ) {
         return;
     }
 
-    // Convert cart into readable text
-    const items = currentCart.map(function(item) {
-        return `${item.name} × ${item.quantity} = ₦${item.total.toLocaleString()}`;
-    }).join("\n");
 
-    // Calculate the complete order total
-    const total = currentCart.reduce(function(sum, item) {
-        return sum + Number(item.total);
-    }, 0);
+    cart.splice(index, 1);
 
-    // Prepare the information for Google Sheets
-    const orderData = new URLSearchParams();
+    saveCart(cart);
 
-    orderData.append("name", name);
-    orderData.append("phone", phone);
-    orderData.append("email", email);
-    orderData.append("address", address);
-    orderData.append("items", items);
-    orderData.append("total", "₦" + total.toLocaleString());
+    displayCheckout();
 
-    console.log("Sending order:", {
-        name,
-        phone,
-        email,
-        address,
-        items,
-        total
-    });
+}
+/* =========================================================
+   CREATE PREDUCT DETAILS
+   ========================================================= */
 
-    // Send the order
-    fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        body: orderData
-    })
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(result) {
 
-        console.log("Google response:", result);
+function createProductDetails(item) {
 
-        if (result.success) {
+    if (
+        item.productDetails &&
+        String(item.productDetails).trim() !== ""
+    ) {
+        return String(item.productDetails);
+    }
 
-            alert(
-                "Your order has been placed successfully!\n\n" +
-                "Order ID: " + result.orderId
+    const details = [];
+
+
+    /* =====================================================
+       CAKE
+       ===================================================== */
+
+    if (
+        item.orderType === "Cake" ||
+        item.productType === "Cake" ||
+        item.name === "Cake" ||
+        item.name === "Customized Cake"
+    ) {
+
+        if (item.cakeSize || item.size)
+            details.push(
+                "Cake Size: " +
+                (item.cakeSize || item.size)
             );
 
-            // Empty the cart after successful submission
-            localStorage.removeItem("cart");
+        if (item.cakeShape || item.shape)
+            details.push(
+                "Cake Shape: " +
+                (item.cakeShape || item.shape)
+            );
 
-        } else {
+        if (item.cakeFlavour || item.flavour)
+            details.push(
+                "Cake Flavour: " +
+                (item.cakeFlavour || item.flavour)
+            );
 
-            alert("There was a problem submitting your order.");
-            console.error(result.error);
+        if (item.layers)
+            details.push(
+                "Layers: " +
+                item.layers
+            );
+
+        if (item.filling)
+            details.push(
+                "Filling: " +
+                item.filling
+            );
+
+        if (item.icing)
+            details.push(
+                "Icing: " +
+                item.icing
+            );
+
+        if (item.icingColour)
+            details.push(
+                "Icing Colour: " +
+                item.icingColour
+            );
+
+        if (item.decoration)
+            details.push(
+                "Decoration: " +
+                item.decoration
+            );
+
+        if (item.decorationExtras)
+            details.push(
+                "Decoration Details: " +
+                item.decorationExtras
+            );
+
+        if (item.cakeTopper)
+            details.push(
+                "Cake Topper: " +
+                item.cakeTopper
+            );
+
+        if (item.cakePurpose)
+            details.push(
+                "Cake Purpose: " +
+                item.cakePurpose
+            );
+
+        if (item.cakeMessage)
+            details.push(
+                "Cake Message: " +
+                item.cakeMessage
+            );
+    }
+
+
+    /* =====================================================
+       SPONGE CAKE
+       ===================================================== */
+
+    if (
+        item.orderType === "Sponge Cake" ||
+        item.productType === "Sponge Cake" ||
+        item.name === "Sponge Cake" ||
+        item.name === "Customized Sponge Cake"
+    ) {
+
+        if (item.cakeSize)
+            details.push(
+                "Sponge Cake Size: " +
+                item.cakeSize
+            );
+
+        if (item.cakeShape)
+            details.push(
+                "Sponge Cake Shape: " +
+                item.cakeShape
+            );
+
+        if (item.cakeFlavour)
+            details.push(
+                "Sponge Cake Flavour: " +
+                item.cakeFlavour
+            );
+
+        if (item.layers)
+            details.push(
+                "Layers: " +
+                item.layers
+            );
+
+        if (item.filling)
+            details.push(
+                "Filling: " +
+                item.filling
+            );
+
+        if (item.icing)
+            details.push(
+                "Icing: " +
+                item.icing
+            );
+
+        if (item.icingColour)
+            details.push(
+                "Icing Colour: " +
+                item.icingColour
+            );
+
+        if (item.decoration)
+            details.push(
+                "Decoration: " +
+                item.decoration
+            );
+
+        if (item.decorationExtras)
+            details.push(
+                "Decoration Details: " +
+                item.decorationExtras
+            );
+
+        if (item.cakeTopper)
+            details.push(
+                "Cake Topper: " +
+                item.cakeTopper
+            );
+
+        if (item.cakePurpose)
+            details.push(
+                "Cake Purpose: " +
+                item.cakePurpose
+            );
+
+        if (item.cakeMessage)
+            details.push(
+                "Cake Message: " +
+                item.cakeMessage
+            );
+    }
+
+
+    /* =====================================================
+       CUPCAKES
+       ===================================================== */
+
+    if (
+        item.orderType === "Cupcake" ||
+        item.productType === "Cupcake" ||
+        item.name === "Cupcakes" ||
+        item.name === "Customized Cupcakes"
+    ) {
+
+        if (item.cupcakeSize)
+            details.push(
+                "Cupcake Size: " +
+                item.cupcakeSize
+            );
+
+        if (item.cupcakeFlavour)
+            details.push(
+                "Cupcake Flavour: " +
+                item.cupcakeFlavour
+            );
+
+        if (item.filling)
+            details.push(
+                "Filling: " +
+                item.filling
+            );
+
+        if (item.icing)
+            details.push(
+                "Icing: " +
+                item.icing
+            );
+
+        if (item.icingColour)
+            details.push(
+                "Icing Colour: " +
+                item.icingColour
+            );
+
+        if (item.toppings)
+            details.push(
+                "Toppings: " +
+                item.toppings
+            );
+
+        if (item.decoration)
+            details.push(
+                "Decoration: " +
+                item.decoration
+            );
+
+        if (item.decorationExtras)
+            details.push(
+                "Decoration Details: " +
+                item.decorationExtras
+            );
+
+        if (item.cupcakeTopper)
+            details.push(
+                "Cupcake Topper: " +
+                item.cupcakeTopper
+            );
+
+        if (item.cupcakePurpose)
+            details.push(
+                "Cupcake Purpose: " +
+                item.cupcakePurpose
+            );
+
+        if (item.cupcakeMessage)
+            details.push(
+                "Cupcake Message: " +
+                item.cupcakeMessage
+            );
+    }
+
+
+    /* =====================================================
+       COMMON DETAILS
+       ===================================================== */
+
+    if (item.specialInstructions)
+        details.push(
+            "Special Instructions: " +
+            item.specialInstructions
+        );
+
+
+    if (item.sku)
+        details.push(
+            "SKU: " +
+            item.sku
+        );
+
+
+    return details.join(" | ");
+}
+
+/* =========================================================
+   PREPARE ITEMS
+   ========================================================= */
+
+function prepareOrderItems(cart) {
+
+    return cart.map(function(item) {
+
+        const quantity =
+            Number(item.quantity) || 1;
+
+        const unitPrice =
+            Number(item.price) || 0;
+
+        const productTotal =
+            quantity * unitPrice;
+
+
+        let productType =
+            item.orderType ||
+            item.productType ||
+            "Other";
+
+
+        if (
+            !item.orderType &&
+            !item.productType
+        ) {
+
+            const name =
+                String(
+                    item.name ||
+                    item.productName ||
+                    ""
+                ).toLowerCase();
+
+
+            if (name.includes("cake")) {
+
+                productType = "Cake";
+
+            }
+            else if (
+                name.includes("cupcake")
+            ) {
+
+                productType = "Cupcake";
+
+            }
+            else if (
+                name.includes("cookie")
+            ) {
+
+                productType = "Cookie";
+
+            }
+            else {
+
+                productType = "Other";
+
+            }
+
         }
-    })
-    .catch(function(error) {
 
-        console.error("Order error:", error);
+
+        return {
+
+            productName:
+                item.name ||
+                item.productName ||
+                "Product",
+
+            productType:
+                productType,
+
+            quantity:
+                quantity,
+
+            unitPrice:
+                unitPrice,
+
+            productTotal:
+                productTotal,
+
+            productDetails:
+                createProductDetails(item),
+
+            specialInstructions:
+                item.specialInstructions ||
+                "",
+
+            sku:
+                item.sku ||
+                "",
+
+            referenceImage:
+                item.referenceImage ||
+                null
+
+        };
+
+    });
+
+}
+
+
+/* =========================================================
+   CALCULATE CART TOTAL
+   ========================================================= */
+
+function calculateCartTotal(cart) {
+
+    return cart.reduce(
+        function(total, item) {
+
+            const quantity =
+                Number(item.quantity) || 1;
+
+            const price =
+                Number(item.price) || 0;
+
+            return total +
+                (quantity * price);
+
+        },
+        0
+    );
+
+}
+
+
+/* =========================================================
+   GENERATE ORDER ID
+   ========================================================= */
+
+function generateOrderId() {
+
+    return "ORD-" + Date.now();
+
+}
+
+
+/* =========================================================
+   GET CUSTOMER INFORMATION
+   ========================================================= */
+
+function getCustomerInformation() {
+
+    return {
+
+        customerName:
+            document
+            .getElementById(
+                "customerName"
+            )
+            .value
+            .trim(),
+
+        customerPhone:
+            document
+            .getElementById(
+                "customerPhone"
+            )
+            .value
+            .trim(),
+
+        customerEmail:
+            document
+            .getElementById(
+                "customerEmail"
+            )
+            .value
+            .trim(),
+
+        whatsapp:
+            document
+            .getElementById(
+                "whatsapp"
+            )
+            .value
+            .trim(),
+
+        deliveryMethod:
+            document
+            .getElementById(
+                "deliveryMethod"
+            )
+            .value,
+
+        deliveryAddress:
+            document
+            .getElementById(
+                "customerAddress"
+            )
+            .value
+            .trim(),
+
+        dateNeeded:
+            document
+            .getElementById(
+                "dateNeeded"
+            )
+            .value,
+
+        dietaryRequirements:
+            document
+            .getElementById(
+                "dietaryRequirements"
+            )
+            .value
+            .trim(),
+
+        allergies:
+            document
+            .getElementById(
+                "allergies"
+            )
+            .value
+            .trim(),
+
+        specialInstructions:
+            document
+            .getElementById(
+                "orderSpecialInstructions"
+            )
+            .value
+            .trim()
+
+    };
+
+}
+
+
+/* =========================================================
+   VALIDATE CUSTOMER INFORMATION
+   ========================================================= */
+
+function validateCustomer(customer) {
+
+    if (
+        !customer.customerName ||
+        !customer.customerPhone ||
+        !customer.customerEmail ||
+        !customer.deliveryAddress
+    ) {
 
         alert(
-            "Something went wrong while placing your order. " +
-            "Please try again."
+            "Please fill in your name, phone number, email address and delivery address."
         );
-    });
-});
-console.log("Current Cart:",currentCart);
 
-        
-      
+        return false;
 
-        </script>
-         
+    }
 
-      
+
+    return true;
+
+}
+
+
+/* =========================================================
+   CREATE COMPLETE ORDER
+   ========================================================= */
+
+function createCompleteOrder() {
+
+    const cart = getCart();
+
+    const customer =
+        getCustomerInformation();
+
+    const items =
+        prepareOrderItems(cart);
+
+    const total =
+        calculateCartTotal(cart);
+
+
+    return {
+
+        orderId:
+            generateOrderId(),
+
+        orderDate:
+            new Date().toISOString(),
+
+        customerName:
+            customer.customerName,
+
+        customerPhone:
+            customer.customerPhone,
+
+        customerEmail:
+            customer.customerEmail,
+
+        whatsapp:
+            customer.whatsapp,
+
+        deliveryMethod:
+            customer.deliveryMethod,
+
+        deliveryAddress:
+            customer.deliveryAddress,
+
+        dateNeeded:
+            customer.dateNeeded,
+
+        dietaryRequirements:
+            customer.dietaryRequirements,
+
+        allergies:
+            customer.allergies,
+
+        specialInstructions:
+            customer.specialInstructions,
+
+        total:
+            total,
+
+        paymentStatus:
+            "Payment Pending",
+
+        paymentReference:
+            "",
+
+        items:
+            items
+
+    };
+
+}
+
+
+/* =========================================================
+   SEND ORDER TO GOOGLE SHEETS
+   ========================================================= */
+
+async function sendOrderToGoogle(
+    orderData
+) {
+
+    const response =
+        await fetch(
+            GOOGLE_SCRIPT_URL,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body:
+                    JSON.stringify(
+                        orderData
+                    )
+            }
+        );
+
+
+    const result =
+        await response.json();
+
+
+    if (!result.success) {
+
+        throw new Error(
+            result.error ||
+            "Google Apps Script rejected the order."
+        );
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   PLACE ORDER WITHOUT PAYSTACK
+   ========================================================= */
+
+async function placeOrder() {
+
+    const cart = getCart();
+
+
+    if (cart.length === 0) {
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+
+    const customer =
+        getCustomerInformation();
+
+
+    if (!validateCustomer(customer)) {
+        return;
+    }
+
+
+    const button =
+        document.getElementById(
+            "placeOrderButton"
+        );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "SUBMITTING ORDER...";
+
+
+    try {
+
+        const orderData =
+            createCompleteOrder();
+
+
+        console.log(
+            "Order being sent:",
+            orderData
+        );
+
+
+        const result =
+            await sendOrderToGoogle(
+                orderData
+            );
+
+
+        localStorage.removeItem(
+            "cart"
+        );
+
+
+        alert(
+            "Your order has been placed successfully!\n\n" +
+            "Order ID: " +
+            result.orderId
+        );
+
+
+        window.location.href =
+            "index.html";
+
+
+    } catch (error) {
+
+        console.error(
+            "Order submission error:",
+            error
+        );
+
+
+        alert(
+            "There was a problem submitting your order.\n\n" +
+            "Your cart has NOT been deleted. Please try again."
+        );
+
+
+        button.disabled = false;
+
+        button.textContent =
+            "PLACE ORDER";
+
+    }
+
+}
+
+
+/* =========================================================
+   PAYSTACK
+   =========================================================
+
+   THIS FUNCTION IS READY FOR FUTURE USE.
+
+   It does NOT run while USE_PAYSTACK is false.
+   ========================================================= */
+
+function payWithPaystack() {
+
+    const cart = getCart();
+
+
+    if (cart.length === 0) {
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+
+    const customer =
+        getCustomerInformation();
+
+
+    if (!validateCustomer(customer)) {
+        return;
+    }
+
+
+    /* -----------------------------------------
+       PAYSTACK CURRENTLY DISABLED
+       ----------------------------------------- */
+
+    if (!USE_PAYSTACK) {
+
+        alert(
+            "Paystack is not active yet.\n\n" +
+            "Please use the current payment method for now. " +
+            "Paystack can be activated later when your account is ready."
+        );
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------
+       CHECK PUBLIC KEY
+       ----------------------------------------- */
+
+    if (
+        !PAYSTACK_PUBLIC_KEY ||
+        PAYSTACK_PUBLIC_KEY ===
+        "YOUR_PAYSTACK_PUBLIC_KEY_HERE"
+    ) {
+
+        alert(
+            "Paystack public key has not been added yet."
+        );
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------
+       TOTAL
+       ----------------------------------------- */
+
+    const total =
+        calculateCartTotal(cart);
+
+
+    /*
+     * Paystack expects the amount in KOBO.
+     *
+     * Example:
+     *
+     * ₦50,000
+     *
+     * becomes:
+     *
+     * 5000000 kobo
+     */
+
+    const amountInKobo =
+        Math.round(
+            total * 100
+        );
+
+
+    const payButton =
+        document.getElementById(
+            "payNowButton"
+        );
+
+
+    payButton.disabled = true;
+
+    payButton.textContent =
+        "OPENING PAYMENT...";
+
+
+    /* -----------------------------------------
+       PAYSTACK CHECKOUT
+       ----------------------------------------- */
+
+    const handler =
+        PaystackPop.setup({
+
+            key:
+                PAYSTACK_PUBLIC_KEY,
+
+            email:
+                customer.customerEmail,
+
+            amount:
+                amountInKobo,
+
+            currency:
+                "NGN",
+
+            ref:
+                generateOrderId(),
+
+            metadata: {
+
+                custom_fields: [
+
+                    {
+                        display_name:
+                            "Customer Name",
+
+                        variable_name:
+                            "customer_name",
+
+                        value:
+                            customer.customerName
+                    },
+
+                    {
+                        display_name:
+                            "Phone Number",
+
+                        variable_name:
+                            "phone",
+
+                        value:
+                            customer.customerPhone
+                    }
+
+                ]
+
+            },
+
+
+            callback:
+                function(response) {
+
+                    /*
+                     * IMPORTANT:
+                     *
+                     * This callback only tells the
+                     * browser that Paystack returned
+                     * a transaction reference.
+                     *
+                     * When you activate Paystack,
+                     * the transaction should also be
+                     * verified securely on the backend
+                     * before marking the order as PAID.
+                     */
+
+                    console.log(
+                        "Paystack reference:",
+                        response.reference
+                    );
+
+
+                    handleSuccessfulPayment(
+                        response.reference
+                    );
+
+                },
+
+
+            onClose:
+                function() {
+
+                    payButton.disabled =
+                        false;
+
+                    payButton.textContent =
+                        "PAY NOW WITH PAYSTACK";
+
+
+                    document.getElementById(
+                        "paystackStatus"
+                    ).textContent =
+                        "Payment window was closed.";
+
+                }
+
+        });
+
+
+    handler.openIframe();
+
+}
+
+
+/* =========================================================
+   AFTER PAYSTACK PAYMENT
+   ========================================================= */
+
+async function handleSuccessfulPayment(
+    paymentReference
+) {
+
+    const cart = getCart();
+
+
+    if (cart.length === 0) {
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+
+    const customer =
+        getCustomerInformation();
+
+
+    const orderData =
+        createCompleteOrder();
+
+
+    /*
+     * Save the Paystack reference.
+     */
+
+    orderData.paymentStatus =
+        "Payment Received";
+
+    orderData.paymentReference =
+        paymentReference;
+
+
+    const payButton =
+        document.getElementById(
+            "payNowButton"
+        );
+
+
+    payButton.disabled = true;
+
+    payButton.textContent =
+        "SENDING ORDER...";
+
+
+    try {
+
+        /*
+         * Send the complete order to
+         * Google Sheets/Gmail after payment.
+         */
+
+        const result =
+            await sendOrderToGoogle(
+                orderData
+            );
+
+
+        localStorage.removeItem(
+            "cart"
+        );
+
+
+        alert(
+            "Payment received and order submitted successfully!\n\n" +
+            "Order ID: " +
+            result.orderId
+        );
+
+
+        window.location.href =
+            "index.html";
+
+
+    } catch (error) {
+
+        console.error(
+            "Post-payment order error:",
+            error
+        );
+
+
+        alert(
+            "Payment was returned successfully, but the order could not be submitted to the order system.\n\n" +
+            "Payment Reference: " +
+            paymentReference +
+            "\n\n" +
+            "Please keep this reference."
+        );
+
+
+        payButton.disabled =
+            false;
+
+        payButton.textContent =
+            "PAY NOW WITH PAYSTACK";
+
+    }
+
+}
+
+
+/* =========================================================
+   BUTTON EVENTS
+   ========================================================= */
+
+document
+.getElementById(
+    "placeOrderButton"
+)
+.addEventListener(
+    "click",
+    placeOrder
+);
+
+
+document
+.getElementById(
+    "payNowButton"
+)
+.addEventListener(
+    "click",
+    payWithPaystack
+);
+
+
+/* =========================================================
+   INITIALISE CHECKOUT
+   ========================================================= */
+
+displayCheckout();
+
+
+console.log(
+    "Current Cart:",
+    getCart()
+);
+
+</script>
+
+</body>
+</html>
